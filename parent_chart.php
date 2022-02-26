@@ -38,6 +38,7 @@ $id = $_SESSION['parent_id'];
   <ul>
     <li><a href="parent_index.php"><i class="fas fa-home" id="icon"></i>Dashboard</a></li>
     <li><a href="parent_child.php"><i class="fas fa-child"  id="icon"></i>Child Profile</a></li>
+    <li><a href="parent_vaccine_schedule.php"><i class="fas fa-list-alt"  id="icon"></i>Vaccination Schedule</a></li>
     <li><a href="parent_chart.php" class="active"><i class="fa fa-chart-bar"  id="icon"></i>Vaccine Chart</a></li>
     <li><a href="parent_guide.php"><i class="fas fa-book"  id="icon"></i>Nutrition Guide</a></li>
           
