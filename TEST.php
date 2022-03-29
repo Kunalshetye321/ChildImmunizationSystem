@@ -17,7 +17,7 @@ $parent_id = $user_data['parent_id'];
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/parent_vaccine_schedule.css">
+    <link rel="stylesheet" href="css/parent_index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- notif -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -33,7 +33,7 @@ $parent_id = $user_data['parent_id'];
         <label for="check" class="checkbtn">
           <i class="fas fa-bars"></i>
         </label>
-        <label class="logo">Child Immunization</label>
+        <label class="logo">Child Immunization Test</label>
         <ul>
           <li><a href="parent_index.php" class="active"><i class="fas fa-home" id="icon"></i>Dashboard</a></li>
           <li><a href="parent_child.php"><i class="fas fa-child"  id="icon"></i>Child Profile</a></li>
@@ -74,14 +74,14 @@ $parent_id = $user_data['parent_id'];
         $diff = date_diff(date_create($dateOfBirth), date_create($today));
         $age = $diff->format('%y');
 
-        echo "<center><h3>Schedule for " . $childFN . " " . $childLN . "</h3></center>";
+        echo "<center><h3>" . $childFN . " " . $childLN . "</h3></center>";
 
         ?>
         <center><table class="table" style="width: 60%; margin-bottom: 30px">
       <thead style="line-height: 40px">
-                <th style="width: 10%; text-align: center;">Timing</th>
-                <th style="width: 30%; text-align: center;">Vaccine</th>
-                <th style="width: 20%; text-align: center;">Due Date</th>
+                <th style="width: 10%">Vaccine</th>
+                <th style="width: 30%">Information</th>
+                <th style="width: 5%">Minimum Age</th>
       </thead>
       <tbody>
            <tbody>
@@ -94,13 +94,14 @@ $parent_id = $user_data['parent_id'];
                   
                   while($row = $result->fetch_assoc()){
                       $vaccinename = $row['vaccine_name'];
+                      $information = $row['vaccine_descrip'];
                       $minage = $row['min_age'];
                   ?>
                   
                   <tr>
-                    <td><?php echo $minage ?></td>
                     <td><?php echo $vaccinename ?></td>  
-                    <td><?php echo "12 April" ?></td>
+                    <td><?php echo $information ?></td>
+                    <td><?php echo $minage ?></td>
                   </tr>
 
                   <?php } ?>
