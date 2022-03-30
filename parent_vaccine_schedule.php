@@ -1,15 +1,13 @@
-<?php 
+<?php
 session_start();
 error_reporting();
-include("php/connection.php");
-include("php/functions.php");
+include "php/connection.php";
+include "php/functions.php";
 
 $user_data = check_login($con);
 
 $child_data = child($con);
 $parent_id = $user_data['parent_id'];
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,26 +56,25 @@ $parent_id = $user_data['parent_id'];
       <br>
 
       <?php
+      $sql2 = "SELECT * FROM child_tbl where parent_id='$parent_id'";
+      $stmt2 = $con->prepare($sql2);
+      $stmt2->execute();
+      $result2 = $stmt2->get_result();
 
-        $sql2 = "SELECT * FROM child_tbl where parent_id='$parent_id'";
-        $stmt2 = $con->prepare($sql2);
-        $stmt2->execute();
-        $result2 = $stmt2->get_result();
+      while ($row = $result2->fetch_assoc()) {
 
-        while($row = $result2->fetch_assoc()){
           $childFN = $row['firstname'];
           $childLN = $row['lastname'];
           $dob = $row['dateofbirth'];
 
-        $dateOfBirth = $dob;
-        $today = date("Y-m-d");
-        $diff = date_diff(date_create($dateOfBirth), date_create($today));
-        $age = $diff->format('%y');
+          $dateOfBirth = $dob;
+          $today = date("Y-m-d");
+          $diff = date_diff(date_create($dateOfBirth), date_create($today));
+          $age = $diff->format('%y');
 
-        echo "<center><h3>Schedule for " . $childFN . " " . $childLN . "</h3></center>";
-
-        ?>
-        <center><table class="table" style="width: 60%; margin-bottom: 30px">
+          echo "<center><h3>Schedule for " . $childFN . " " . $childLN . "</h3></center>";
+          ?>
+        <center><table class="table" style="width: 60%; margin-bottom: 30px; border-collapse: separate">
       <thead style="line-height: 40px">
                 <th style="width: 10%; text-align: center;">Timing</th>
                 <th style="width: 30%; text-align: center;">Vaccine</th>
@@ -85,29 +82,36 @@ $parent_id = $user_data['parent_id'];
       </thead>
       <tbody>
            <tbody>
-           <tr>
                 <?php
-                  $sql = "SELECT * FROM vaccine_schedule";
-                  $stmt = $con->prepare($sql);
-                  $stmt->execute();
-                  $result = $stmt->get_result();
-                  
-                  while($row = $result->fetch_assoc()){
-                      $vaccinename = $row['vaccine_name'];
-                      $minage = $row['min_age'];
-                  ?>
+                $sql = "SELECT * FROM vaccine_schedule";
+                $stmt = $con->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->get_result();
+
+                while ($row = $result->fetch_assoc()) {
+
+                    $vaccinename = $row['vaccine_name'];
+                    $minage = $row['min_age'];
+                ?>
                   
                   <tr>
-                    <td><?php echo $minage ?></td>
-                    <td><?php echo $vaccinename ?></td>  
-                    <td><?php echo "12 April" ?></td>
+                    <td><?php echo $minage; ?></td>
+                    <td><?php echo $vaccinename; ?></td>  
+                    <td><?php echo "12 April"; ?></td>
                   </tr>
 
-                  <?php } ?>
+                  <?php
+                }
+                ?>
 
           </tbody>
         </table></center>
-        <?php } ?>
+        
+        <center><hr style="border: 0.5px solid black; width: 75%;"></center><br>
+
+        <?php
+      }
+      ?>
 
         </div>
         </div>
@@ -120,7 +124,7 @@ $parent_id = $user_data['parent_id'];
     <script>
 $(document).ready(function(){
 
-var parent_id = '<?=$parent_id?>';
+var parent_id = '<?= $parent_id ?>';
 console.log(parent_id); 
 
  function load_unseen_notification(view = '')
