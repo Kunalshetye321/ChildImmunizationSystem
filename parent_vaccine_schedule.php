@@ -74,11 +74,11 @@ $parent_id = $user_data['parent_id'];
 
           echo "<center><h3>Schedule for " . $childFN . " " . $childLN . "</h3></center>";
           ?>
-        <center><table class="table" style="width: 60%; margin-bottom: 30px; border-collapse: separate">
+        <center><table class="table" style="width: 60%; margin-bottom: 30px; border-collapse: separate; font-size: 16px">
       <thead style="line-height: 40px">
-                <th style="width: 10%; text-align: center;">Timing</th>
-                <th style="width: 30%; text-align: center;">Vaccine</th>
-                <th style="width: 20%; text-align: center;">Due Date</th>
+                <th style="width: 30%; text-align: center;">Timing</th>
+                <th style="width: 40%; text-align: center;">Vaccine</th>
+                <th style="width: 30%; text-align: center;">Due Date</th>
       </thead>
       <tbody>
            <tbody>
@@ -92,12 +92,51 @@ $parent_id = $user_data['parent_id'];
 
                     $vaccinename = $row['vaccine_name'];
                     $minage = $row['min_age'];
-                ?>
-                  
+
+                    // Min Age -
+                    $min_age = "";
+                    $years = $months = $weeks = $days = 0;
+                    $ignore = true;
+                    $total_time = $minage;
+
+                    $years = $total_time / 365;
+                    $years = floor($years);
+                    $months = ($total_time % 365) / 30;
+                    $months = floor($months);
+                    $days = ($total_time % 365) % 30;
+                    
+                    if ($years > 0) {
+                        if ($months > 0) {
+                            $min_age = $years * 12 + $months . " months ";
+                        } else {
+                            $min_age = $years . " years ";
+                        }
+                        $ignore = false;
+                    }
+                    if ($months > 0 && $ignore) {
+                        if ($days > 7 && $days < 30) {
+                            $min_age = $months * 30 + $days;
+                            $weeks = $min_age / 7;
+                            $min_age = $weeks . " weeks ";
+                            $ignore = false;
+                        } elseif ($days < 30) {
+                            $min_age = $min_age . $months . " months ";
+                        }
+                    }
+                    if ($days > 0 && $ignore) {
+                        $min_age = $min_age . $days . " days";
+                    }
+
+                    // Vaccine Due Date -
+                    $vaccinedate = new DateTime($dob);
+                    $vaccinedate->add(new DateInterval('P' . $minage . 'D'));
+
+                    ?>
+
                   <tr>
-                    <td><?php echo $minage; ?></td>
-                    <td><?php echo $vaccinename; ?></td>  
-                    <td><?php echo "12 April"; ?></td>
+                    <td><?php echo $min_age; ?></td>
+                    <td><?php echo $vaccinename; ?></td>
+                    <td><?php echo $vaccinedate->format('d F, Y'); ?></td>
                   </tr>
 
                   <?php

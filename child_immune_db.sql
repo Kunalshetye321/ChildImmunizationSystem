@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Mar 30, 2022 at 02:26 PM
+-- Generation Time: Apr 01, 2022 at 02:34 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -322,14 +322,14 @@ INSERT INTO `vaccine_schedule` (`vaccine_id`, `vaccine_name`, `min_age`) VALUES
 (14, 'Hepatitis B', 180),
 (15, 'Measles', 270),
 (16, 'MMR', 450),
-(17, 'DPT', 540),
-(18, 'OPV', 540),
-(19, 'HiB', 540),
-(20, 'Typhoid', 720),
-(21, 'DPT', 1440),
-(22, 'OPV', 1440),
-(23, 'TT', 3600),
-(24, 'Rubella', 3600);
+(17, 'DPT', 545),
+(18, 'OPV', 545),
+(19, 'HiB', 545),
+(20, 'Typhoid', 730),
+(21, 'DPT', 1460),
+(22, 'OPV', 1460),
+(23, 'TT', 3650),
+(24, 'Rubella', 3650);
 
 --
 -- Indexes for dumped tables

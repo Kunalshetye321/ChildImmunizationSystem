@@ -59,56 +59,36 @@ $parent_id = $user_data['parent_id'];
 
       <?php
 
-        $sql2 = "SELECT * FROM child_tbl where parent_id='$parent_id'";
-        $stmt2 = $con->prepare($sql2);
-        $stmt2->execute();
-        $result2 = $stmt2->get_result();
+$years=$months=$weeks=$days=0;
+                $total_time=5000;
+                $years = $total_time / 365;
+                $years = floor($years);
+                $months = ($total_time % 365) / 30;
+                $months = floor($months);
+                $days = ($total_time % 365) % 30;
+                $ignore=true;
+                
+                //$min_age=$years . " years " . $months . " months " . $days . " days";
+                if($years>0){
+                  $min_age=$years . " years ";
+                  $ignore=false;
+                }
+                if($months>0 && $ignore){
+                  if($days > 7 && $days<30){
+                    $min_age=$months*30+$days;
+                    $weeks=$min_age/7;
+                    $min_age = $weeks . " weeks ";
+                    $ignore=false;
+                  } elseif($days<30) {
+                    $min_age = $min_age . $months . " months ";
+                  }
+                }
+                if($days>0 && $ignore){
+                  $min_age = $min_age . $days . " days";
+                }
+                echo "<center><h2>" . $min_age . "</center></h2>";
 
-        while($row = $result2->fetch_assoc()){
-          $childFN = $row['firstname'];
-          $childLN = $row['lastname'];
-          $dob = $row['dateofbirth'];
-
-        $dateOfBirth = $dob;
-        $today = date("Y-m-d");
-        $diff = date_diff(date_create($dateOfBirth), date_create($today));
-        $age = $diff->format('%y');
-
-        echo "<center><h3>" . $childFN . " " . $childLN . "</h3></center>";
-
-        ?>
-        <center><table class="table" style="width: 60%; margin-bottom: 30px">
-      <thead style="line-height: 40px">
-                <th style="width: 10%">Vaccine</th>
-                <th style="width: 30%">Information</th>
-                <th style="width: 5%">Minimum Age</th>
-      </thead>
-      <tbody>
-           <tbody>
-           <tr>
-                <?php
-                  $sql = "SELECT * FROM vaccine_schedule";
-                  $stmt = $con->prepare($sql);
-                  $stmt->execute();
-                  $result = $stmt->get_result();
-                  
-                  while($row = $result->fetch_assoc()){
-                      $vaccinename = $row['vaccine_name'];
-                      $information = $row['vaccine_descrip'];
-                      $minage = $row['min_age'];
-                  ?>
-                  
-                  <tr>
-                    <td><?php echo $vaccinename ?></td>  
-                    <td><?php echo $information ?></td>
-                    <td><?php echo $minage ?></td>
-                  </tr>
-
-                  <?php } ?>
-
-          </tbody>
-        </table></center>
-        <?php } ?>
+      ?>
 
         </div>
         </div>
