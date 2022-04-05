@@ -1,8 +1,7 @@
-<?php 
-session_start();
-error_reporting();
-include("php/connection.php");
-include("php/functions.php");
+<?php
+include "php/connection.php";
+include "php/functions.php";
+include "sendmail.php";
 
 $user_data = check_login($con);
 
@@ -10,133 +9,16 @@ $child_data = child($con);
 $parent_id = $user_data['parent_id'];
 
 
+$sql_m = "SELECT * FROM parent_tbl";
+$stmt_m = $con->prepare($sql_m);
+$stmt_m->execute();
+$result_m = $stmt_m->get_result();
+while ($row = $result_m->fetch_assoc()) {
+    $parentFN = $row['firstname'];
+    $parentLN = $row['lastname'];
+    $email = $row['email'];
+    $name = $parentFN . " " . $parentLN;
+    sendEmail($email, $name, "Vaccine Date is arrived!");
+}
+
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/parent_index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <!-- notif -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>Dashboard | Parent</title>
-</head>
-<body>
-
-    <!-- Navigation Bar -->
-    <nav>
-        <input type="checkbox" id="check">
-        <label for="check" class="checkbtn">
-          <i class="fas fa-bars"></i>
-        </label>
-        <label class="logo">Child Immunization Test</label>
-        <ul>
-          <li><a href="parent_index.php" class="active"><i class="fas fa-home" id="icon"></i>Dashboard</a></li>
-          <li><a href="parent_child.php"><i class="fas fa-child"  id="icon"></i>Child Profile</a></li>
-          <li><a href="parent_vaccine_schedule.php"><i class="fas fa-list-alt"  id="icon"></i>Vaccination Schedule</a></li>
-          <li><a href="parent_chart.php"><i class="fa fa-chart-bar"  id="icon"></i>Vaccine Chart</a></li>
-          <li><a href="parent_guide.php"><i class="fas fa-book"  id="icon"></i>Nutrition Guide</a></li>
-
-      <li class="dropdown">
-       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="label label-pill label-danger count" style="border-radius:10px;"></span> <span class="glyphicon glyphicon-envelope" style="font-size:18px;"></span></a>
-       <ul class="dropdown-menu"></ul>
-      </li>
-      
-          <div class="dropdown">
-            <button class="dropbtn"><i class="fa fa-caret-down"></i></button>
-            <div class="dropdown-content">
-            <a href="./php/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
-            </div>
-          </div>
-        </ul>
-      </nav>
-      <br>
-      <br>
-
-      <?php
-
-$years=$months=$weeks=$days=0;
-                $total_time=5000;
-                $years = $total_time / 365;
-                $years = floor($years);
-                $months = ($total_time % 365) / 30;
-                $months = floor($months);
-                $days = ($total_time % 365) % 30;
-                $ignore=true;
-                
-                //$min_age=$years . " years " . $months . " months " . $days . " days";
-                if($years>0){
-                  $min_age=$years . " years ";
-                  $ignore=false;
-                }
-                if($months>0 && $ignore){
-                  if($days > 7 && $days<30){
-                    $min_age=$months*30+$days;
-                    $weeks=$min_age/7;
-                    $min_age = $weeks . " weeks ";
-                    $ignore=false;
-                  } elseif($days<30) {
-                    $min_age = $min_age . $months . " months ";
-                  }
-                }
-                if($days>0 && $ignore){
-                  $min_age = $min_age . $days . " days";
-                }
-                echo "<center><h2>" . $min_age . "</center></h2>";
-
-      ?>
-
-        </div>
-        </div>
-        </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-    <!-- notif -->
-    <script>
-$(document).ready(function(){
-
-var parent_id = '<?=$parent_id?>';
-console.log(parent_id); 
-
- function load_unseen_notification(view = '')
- {
-  $.ajax({
-   url:"fetch_notification.php",
-   method:"POST",
-   data:{
-       view:view,
-       parent_id : parent_id
-       },
-   dataType:"json",
-   success:function(data)
-   {
-    $('.dropdown-menu').html(data.notification);
-    if(data.unseen_notification > 0)
-    {
-     $('.count').html(data.unseen_notification);
-    }
-   }
-  });
- }
- 
- load_unseen_notification();
- 
- $(document).on('click', '.dropdown-toggle', function(){
-  $('.count').html('');
-  load_unseen_notification('yes');
- });
- 
- setInterval(function(){ 
-  load_unseen_notification();; 
- }, 5000);
- 
-});
-</script>
-  </body>
-</html>
