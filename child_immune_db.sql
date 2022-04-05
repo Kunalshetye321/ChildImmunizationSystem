@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 01, 2022 at 02:34 PM
+-- Generation Time: Apr 05, 2022 at 07:19 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -97,7 +97,7 @@ CREATE TABLE `child_tbl` (
 --
 
 INSERT INTO `child_tbl` (`child_id`, `parent_id`, `firstname`, `lastname`, `middlename`, `dateofbirth`, `placeofbirth`, `address`, `fathername`, `mothername`, `birthheight`, `birthweight`, `sex`) VALUES
-(91, 18, 'Akash', 'Singh', 'Aman', '2015-08-05', 'Mumbai', 'Vasai', 'Aman', 'Rohini', 4, 15, 'male'),
+(91, 18, 'Akash', 'Singh', 'Vishal', '2015-08-05', 'Mumbai', 'Vasai', 'Vishal', 'Rohini', 4, 15, 'male'),
 (92, 22, 'Amit', 'Patil', 'Ayush', '2008-02-01', 'Mumbai', 'Mumbai', 'Ayush', 'Anita', 3, 20, 'male'),
 (93, 22, 'Amita', 'Patil', 'Ayush', '2010-02-01', 'Mumbai', 'Mumbai', 'Ayush', 'Anita', 2, 15, 'female');
 
@@ -234,11 +234,8 @@ CREATE TABLE `parent_tbl` (
 --
 
 INSERT INTO `parent_tbl` (`parent_id`, `firstname`, `lastname`, `middlename`, `address`, `phonenum`, `email`, `username`, `password`) VALUES
-(18, 'Aman', 'Singh', 'Viraj', 'Vasai', '12341234', 'aman@gmail.com', 'amansingh', '1234'),
-(19, 'Shubham', 'Dubey', 'Hari', 'Virar', '12341234', 'shubham@gmail.com', 'shubhamdubey', '1234'),
-(20, 'Sumit', 'Das', 'Santosh', 'Andheri', '12341234', 'sumit@gmail.com', 'sumitdas', '1234'),
-(21, 'Viraj', 'Rane', 'Sanjay', 'Thane', '12341234', 'viraj@gmail.com', 'virajrane', '1234'),
-(22, 'Ayush', 'Patil', 'Shubhash', 'Palghar', '9834693269', 'mandar2217@gmail.com', 'ayushpatil', '1234');
+(18, 'Vishal', 'Rane', 'Viraj', 'Vasai', '12341234', 'vishalr2021@protonmail.com', 'vishalrane', '1234'),
+(22, 'Ayush', 'Patil', 'Shubhash', 'Palghar', '9834693269', 'childimmunizationcenter@gmail.com', 'ayushpatil', '1234');
 
 -- --------------------------------------------------------
 
@@ -321,7 +318,7 @@ INSERT INTO `vaccine_schedule` (`vaccine_id`, `vaccine_name`, `min_age`) VALUES
 (13, 'HiB', 98),
 (14, 'Hepatitis B', 180),
 (15, 'Measles', 270),
-(16, 'MMR', 450),
+(16, 'MMR', 455),
 (17, 'DPT', 545),
 (18, 'OPV', 545),
 (19, 'HiB', 545),
