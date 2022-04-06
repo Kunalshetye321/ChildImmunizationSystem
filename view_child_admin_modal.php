@@ -1,20 +1,18 @@
-<?php 
-include("connection.php");
+<?php
+include "connection.php";
 // print_r($_POST);
 $child_id = $_POST['child_id'];
 // echo json_encode($_POST);
-if(isset($_POST['child_id'])){
-   
+if (isset($_POST['child_id'])) {
 }
 ?>
 
 <?php
-      $sql = "SELECT * FROM child_tbl WHERE child_id = '$child_id'";
-      $stmt = $con->prepare($sql);
-          $stmt->execute();
-          $result = $stmt->get_result();
-          while($row = $result->fetch_assoc()){
-?>
+$sql = "SELECT * FROM child_tbl WHERE child_id = '$child_id'";
+$stmt = $con->prepare($sql);
+$stmt->execute();
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) { ?>
 <style>
   .label{
     margin-right: 10%; 
@@ -34,31 +32,31 @@ if(isset($_POST['child_id'])){
   }
   }
 </style>
-    <?php echo "<label style='border-bottom: 1px solid #00539cff; font-size: 20px;'>".$row['firstname']." ".$row['middlename']." ".$row['lastname']."</label>" ?>
+    <?php echo "<label style='border-bottom: 1px solid #00539cff; font-size: 20px;'>" . $row['firstname'] . " " . $row['middlename'] . " " . $row['lastname'] . "</label>"; ?>
         <div class="container"> 
             <label style="margin-right: 5%">Birthday:</label> 
-               <?php echo "<label class='label'>".$row['dateofbirth']."</label>" ?>
+               <?php echo "<label class='label'>" . $row['dateofbirth'] . "</label>"; ?>
 
             <label style="margin-right: 5%">Birth Place:</label> 
-                <?php echo "<label class='label'>".$row['placeofbirth']."</label>" ?>
+                <?php echo "<label class='label'>" . $row['placeofbirth'] . "</label>"; ?>
         <br>
             <label style="margin-right: 5%">Address:</label>        
-                <?php echo "<label class='label'>".$row['address']."</label>" ?>
+                <?php echo "<label class='label'>" . $row['address'] . "</label>"; ?>
         <br>
             <label style="margin-right: 3%">Mother's Name:</label>
-                <?php echo "<label class='label'>".$row['mothername']."</label>" ?>
+                <?php echo "<label class='label'>" . $row['mothername'] . "</label>"; ?>
 
             <label style="margin-right: 2%">Father's Name:</label>
-                <?php echo "<label class='label'>".$row['fathername']."</label>" ?>
+                <?php echo "<label class='label'>" . $row['fathername'] . "</label>"; ?>
         <br>
             <label style="margin-right: 5%">Birth Height:</label>
-                <?php echo "<label class='label'>".$row['birthheight']."</label>" ?>
+                <?php echo "<label class='label'>" . $row['birthheight'] . "</label>"; ?>
 
             <label style="margin-right: 5%">Birth Weight:</label>
-                <?php echo "<label class='label'>".$row['birthweight']."</label>" ?>
+                <?php echo "<label class='label'>" . $row['birthweight'] . "</label>"; ?>
         <br>
             <label class="sex" style="margin-right: 5%">Sex:</label>
-                <?php echo "<label class='label'>".$row['sex']."</label>" ?>
+                <?php echo "<label class='label'>" . $row['sex'] . "</label>"; ?>
         </div>
     </form>  
 <?php }
@@ -77,7 +75,7 @@ if(isset($_POST['child_id'])){
           </tr>
       </thead>
       <tbody>
-          <?php 
+          <?php
           $sql = "SELECT *,chart.vaccinated, vaccine.vaccinename, healthcare_info.vaccinatorname, chart.dateofvaccination, healthcenter_tbl.healthcenter 
           FROM (((chart
           INNER JOIN vaccine ON chart.vaccine_id = vaccine.vaccine_id)
@@ -87,8 +85,7 @@ if(isset($_POST['child_id'])){
           $stmt = $con->prepare($sql);
           $stmt->execute();
           $result = $stmt->get_result();
-          while($row = $result->fetch_assoc()){
-          ?>
+          while ($row = $result->fetch_assoc()) { ?>
           <tr>
               <td><?php echo $row['vaccinename']; ?></td>
               <td><?php echo $row['dose']; ?></td>
@@ -98,7 +95,8 @@ if(isset($_POST['child_id'])){
               <td><?php echo $row['vaccinated']; ?></td>
               </td>
           </tr>
-          <?php } ?>
+          <?php }
+          ?>
       </tbody>
   </table>
   </div>

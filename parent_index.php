@@ -1,11 +1,10 @@
-<?php 
+<?php
 session_start();
 error_reporting(0);
-include("php/connection.php");
-include("php/functions.php");
+include "PHP/connection.php";
+include "PHP/functions.php";
 
 $user_data = check_login($con);
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -13,7 +12,7 @@ $user_data = check_login($con);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/parent_index.css">
+    <link rel="stylesheet" href="CSS/parent_index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- notif -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
@@ -45,7 +44,7 @@ $user_data = check_login($con);
           <div class="dropdown">
             <button class="dropbtn"><i class="fa fa-caret-down"></i></button>
             <div class="dropdown-content">
-            <a href="./php/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
+            <a href="./PHP/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
             </div>
           </div>
         </ul>
@@ -60,21 +59,24 @@ $user_data = check_login($con);
       <tbody>
            <tbody>
            <tr>
-                <?php 
-                    $sql = "SELECT *
+                <?php
+                $sql = "SELECT *
                     FROM vaccine_information";
-                    $stmt = $con->prepare($sql);
-                    $stmt->execute();
-                    $result = $stmt->get_result();
-                    while($row = $result->fetch_assoc()){
-                        $vaccinename = $row['vaccinename'];
-                        $information = $row['information'];
+                $stmt = $con->prepare($sql);
+                $stmt->execute();
+                $result = $stmt->get_result();
+                while ($row = $result->fetch_assoc()) {
+
+                    $vaccinename = $row['vaccinename'];
+                    $information = $row['information'];
                     ?>        
                         <tr>
-                        <td  ><?php echo $vaccinename ?></td>  
-                        <td  ><?php echo $information ?></td>          
+                        <td  ><?php echo $vaccinename; ?></td>  
+                        <td  ><?php echo $information; ?></td>          
                     </tr>
-                    <?php } ?>
+                    <?php
+                }
+                ?>
           </tbody>
         </table>
         </div>
@@ -88,7 +90,7 @@ $user_data = check_login($con);
     <script>
 $(document).ready(function(){
 
-var parent_id = '<?=$parent_id?>';
+var parent_id = '<?= $parent_id ?>';
 console.log(parent_id); 
 
  function load_unseen_notification(view = '')

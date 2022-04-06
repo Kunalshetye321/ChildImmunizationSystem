@@ -1,35 +1,35 @@
-<?php 
+<?php
 
-include("php/connection.php");
-include("php/functions.php");
+include "PHP/connection.php";
+include "PHP/functions.php";
 
-if(isset($_POST['guide'])){
+if (isset($_POST['guide'])) {
     $hf = $_POST['hf'];
     $benefits = $_POST['benefits'];
     $reminders = $_POST['reminders'];
     $sql = "INSERT INTO guide (hf,benefits,reminders)
     values ('$hf','$benefits','$reminders')";
     $result = mysqli_query($con, $sql);
-  }
-  if(isset($_POST['vaccine_information'])){
+}
+if (isset($_POST['vaccine_information'])) {
     $vaccinename = $_POST['vaccinename'];
     $information = $_POST['information'];
     $sql = "INSERT INTO vaccine_information (vaccinename,information)
     values ('$vaccinename','$information')";
     $result = mysqli_query($con, $sql);
-  }
-  if(isset($_POST['vaccinatorname'])){
+}
+if (isset($_POST['vaccinatorname'])) {
     $vaccinatorname = $_POST['vaccinatorname'];
     $sql = "INSERT INTO healthcare_info (vaccinatorname)
     values ('$vaccinatorname')";
     $result = mysqli_query($con, $sql);
-  }
-  if(isset($_POST['vaccine'])){
+}
+if (isset($_POST['vaccine'])) {
     $vaccinename = $_POST['vaccinename'];
     $sql = "INSERT INTO vaccine (vaccinename)
     values ('$vaccinename')";
     $result = mysqli_query($con, $sql);
-  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,7 +42,7 @@ if(isset($_POST['guide'])){
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="input.css">
+    <link rel="stylesheet" href="CSS/input.css">
 </head>
 <body>
 <!-- Navigation Bar -->
@@ -59,7 +59,7 @@ if(isset($_POST['guide'])){
             <div class="dropdown">
               <button class="dropbtn"><i class="fa fa-caret-down"></i></button>
               <div class="dropdown-content">
-              <a href="php/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
+              <a href="PHP/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
               </div>
             </div>
           </ul>
@@ -96,15 +96,14 @@ if(isset($_POST['guide'])){
 <form action="#" method="post" >
 Vaccine Name:
 <select name="vaccinename">
-  <?php  
+  <?php
   $query = "SELECT DISTINCT vaccinename FROM vaccine";
-  $result = mysqli_query($con,$query);  
-  while($rows=mysqli_fetch_assoc($result)){
-
-    $vaccinename = $rows['vaccinename'];
-    echo "<option value='$vaccinename'>$vaccinename</option>";
-  }                                     
-    ?>
+  $result = mysqli_query($con, $query);
+  while ($rows = mysqli_fetch_assoc($result)) {
+      $vaccinename = $rows['vaccinename'];
+      echo "<option value='$vaccinename'>$vaccinename</option>";
+  }
+  ?>
 </select> 
   <div class="mb-3">
     <label for="exampleInputPassword1" class="form-label">Information:</label>

@@ -1,36 +1,32 @@
-<?php 
+<?php
 session_start();
 
-include("php/connection.php");
-include("php/functions.php");
+include "PHP/connection.php";
+include "PHP/functions.php";
 
-if(isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
+    $healthcenter = $_POST['healthcenter'];
+    $vaccinename = $_POST['vaccinename'];
+    $doses = $_POST['doses'];
 
-  $healthcenter = $_POST['healthcenter'];
-  $vaccinename = $_POST['vaccinename'];
-  $doses = $_POST['doses'];
-
-  
-  
-  $query1 = "INSERT INTO healthcenter_tbl (healthcenter)
+    $query1 = "INSERT INTO healthcenter_tbl (healthcenter)
   values ('$healthcenter')";
-  mysqli_query($con, $query1);
+    mysqli_query($con, $query1);
 
-  $query2 = "INSERT INTO vaccine (vaccinename,doses)
+    $query2 = "INSERT INTO vaccine (vaccinename,doses)
   values ('$vaccinename','$doses')";
-  mysqli_query($con, $query2);
-  $child_id = 1;
-  $bcgvaccine_id = 1;
+    mysqli_query($con, $query2);
+    $child_id = 1;
+    $bcgvaccine_id = 1;
     $bcg1st = $_POST['bcg1st'];
     $bcgvaccinatorname = $_POST['bcgvaccinatorname'];
     $bcghealthcenter = $_POST['bcghealthcenter'];
 
-	$sqlbcg = "INSERT INTO chart (child_id,vaccine_id,healthcare_id,dateofvaccination,healthcenter_id)
+    $sqlbcg = "INSERT INTO chart (child_id,vaccine_id,healthcare_id,dateofvaccination,healthcenter_id)
 	values ('$child_id','$bcgvaccine_id','$bcgvaccinatorname','$bcg1st','$bcghealthcenter') 
 	ON DUPLICATE KEY UPDATE  healthcare_id='$bcgvaccinatorname', dateofvaccination='$bcg1st',healthcenter_id='$bcghealthcenter'";
-	$result1 = mysqli_query($con, $sqlbcg);
+    $result1 = mysqli_query($con, $sqlbcg);
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,26 +51,26 @@ if(isset($_POST['submit'])){
                     <label for="datetime">health center </label><br>
                     <div> <!-- Dropdown -->
                       <select name="bcghealthcenter">
-                      <?php  
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                    
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter_id</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter_id</option>";
+                      }
                       ?>
                       </select>	
 
                       <select name="bcgvaccinatorname">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$healthcare_id</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$healthcare_id</option>";
+                      }
                       ?>
                     </select>	
                       <input type="submit" name="submit" value="Log In">

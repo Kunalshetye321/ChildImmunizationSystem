@@ -1,8 +1,7 @@
-<?php 
+<?php
 
-include("php/connection.php");
-include("php/functions.php");
-
+include "PHP/connection.php";
+include "PHP/functions.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +10,7 @@ include("php/functions.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Child Immunization</title>
-    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="CSS/home.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bebas Neue|Exo">
 </head>
 <body>    

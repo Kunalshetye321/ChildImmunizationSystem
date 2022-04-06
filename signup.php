@@ -1,15 +1,13 @@
-
-<?php 
+<?php
 session_start();
 
-	include("php/connection.php");
-	include("php/functions.php");
+include "PHP/connection.php";
+include "PHP/functions.php";
 
-	if(isset($_POST['signup']))
-  {
-    $errors = array();
-		
-		$firstname = $_POST['firstname'];
+if (isset($_POST['signup'])) {
+    $errors = [];
+
+    $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $middlename = $_POST['middlename'];
     $address = $_POST['address'];
@@ -19,43 +17,39 @@ session_start();
     $password = $_POST['password'];
 
     $usernameErr = "SELECT username FROM parent_tbl WHERE username='$username'";
-    $usernameErrResult = mysqli_query($con,$usernameErr);
-   
-    
+    $usernameErrResult = mysqli_query($con, $usernameErr);
+
     if (empty($firstname)) {
-      $errors['fn'] = 'no firstname';
+        $errors['fn'] = 'no firstname';
     }
     if (empty($lastname)) {
         $errors['ln'] = 'no lastname';
     }
     if (empty($middlename)) {
-      $errors['mn'] = 'no middlename';
+        $errors['mn'] = 'no middlename';
     }
     if (empty($phonenum)) {
-      $errors['pn'] = 'no phonenum';
+        $errors['pn'] = 'no phonenum';
     }
     if (empty($address)) {
-      $errors['a'] = 'no address';
+        $errors['a'] = 'no address';
     }
     if (empty($username)) {
         $errors['u'] = 'no username';
-    }else if(mysqli_num_rows($usernameErrResult) > 0){
+    } elseif (mysqli_num_rows($usernameErrResult) > 0) {
         $errors['u'] = 'Username exist';
-    } 
+    }
     if (empty($password)) {
         $errors['p'] = 'no password';
     }
-    
-		if(count($errors)==0){
 
-		
-      $query = "INSERT INTO parent_tbl (firstname,lastname,middlename,address,phonenum,email,username,password)
+    if (count($errors) == 0) {
+        $query = "INSERT INTO parent_tbl (firstname,lastname,middlename,address,phonenum,email,username,password)
       values ('$firstname','$lastname','$middlename','$address','$phonenum','$email','$username','$password')";
-			mysqli_query($con, $query);
-      header("Location: login.php");
-		}
-
-	}
+        mysqli_query($con, $query);
+        header("Location: login.php");
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -66,7 +60,7 @@ session_start();
       src="https://kit.fontawesome.com/64d58efce2.js"
       crossorigin="anonymous"
     ></script>
-    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="CSS/login.css" />
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -80,16 +74,30 @@ session_start();
   <div id="formContent">
     <!-- Icon -->
     <div class="fadeIn first">
-      <img src="admin/b2.png" id="icon" alt="User Icon" />
+      <img src="IMG/b2.png" id="icon" alt="User Icon" />
     </div>
     <h2>Sign Up</h2>
-    <!-- Login Form --><p style="color:red;">  <?php if(isset($errors['fn'])) echo $errors['fn']; ?></p>
-    <p style="color:red;">  <?php if(isset($errors['uln'])) echo $errors['uln']; ?></p>
-    <p style="color:red;">  <?php if(isset($errors['mn'])) echo $errors['mn']; ?></p>
-    <p style="color:red;">  <?php if(isset($errors['a'])) echo $errors['a']; ?></p>
-    <p style="color:red;">  <?php if(isset($errors['pn'])) echo $errors['pn']; ?></p>
-    <p style="color:red;">  <?php if(isset($errors['u'])) echo $errors['u']; ?></p>
-    <p style="color:red;">  <?php if(isset($errors['p'])) echo $errors['p']; ?>
+    <!-- Login Form --><p style="color:red;">  <?php if (isset($errors['fn'])) {
+        echo $errors['fn'];
+    } ?></p>
+    <p style="color:red;">  <?php if (isset($errors['uln'])) {
+        echo $errors['uln'];
+    } ?></p>
+    <p style="color:red;">  <?php if (isset($errors['mn'])) {
+        echo $errors['mn'];
+    } ?></p>
+    <p style="color:red;">  <?php if (isset($errors['a'])) {
+        echo $errors['a'];
+    } ?></p>
+    <p style="color:red;">  <?php if (isset($errors['pn'])) {
+        echo $errors['pn'];
+    } ?></p>
+    <p style="color:red;">  <?php if (isset($errors['u'])) {
+        echo $errors['u'];
+    } ?></p>
+    <p style="color:red;">  <?php if (isset($errors['p'])) {
+        echo $errors['p'];
+    } ?>
     <form action="#" method="POST" class="form-inline">
     
     <i class="fas fa-user"></i><input type="text" id="login" class="fadeIn second" name="firstname" placeholder="First Name"/><br>

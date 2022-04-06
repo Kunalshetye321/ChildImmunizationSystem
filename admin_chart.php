@@ -1,7 +1,7 @@
-<?php 
-include("php/connection.php");
+<?php
+include "PHP/connection.php";
 $query1 = "SELECT * FROM healthcenter_tbl";
-$result1 = mysqli_query($con,$query1);
+$result1 = mysqli_query($con, $query1);
 session_start();
 ?>
 <!DOCTYPE html>
@@ -14,7 +14,7 @@ session_start();
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="admin_chart.css">
+    <link rel="stylesheet" href="CSS/admin_chart.css">
     <!-- bootstrap datatables -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">
    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
@@ -38,7 +38,7 @@ session_start();
     <div class="dropdown">
       <button class="dropbtn"><i class="fa fa-caret-down"></i></button>
       <div class="dropdown-content">
-      <a href="php/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
+      <a href="PHP/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
       </div>
     </div>
   </ul>
@@ -57,28 +57,28 @@ session_start();
             </tr>
         </thead>
         <tbody class="table table-light" style="line-height: 20px">
-            <?php 
+            <?php
             $sql = "SELECT * FROM child_tbl";
             $stmt = $con->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
-            while($row = $result->fetch_assoc()){
-            ?>
+            while ($row = $result->fetch_assoc()) { ?>
             <tr>
                 <td hidden><?php echo $row['parent_id']; ?></td>
                 <td hidden><?php echo $row['child_id']; ?></td>
-                <td><?php echo $row['firstname']."  ".$row['lastname']; ?></td>                           
+                <td><?php echo $row['firstname'] . "  " . $row['lastname']; ?></td>                           
                 <td><button id="id-<?php echo $row['child_id']; ?>" type="button" class="btn btn-primary view_chart" style="color: black; border: none">
                 <i class="fa fa-arrow-circle-right"></i>
                 </button></td>
                 <td>
-                <form action="php/delete.php" method="POST">
+                <form action="PHP/delete.php" method="POST">
                     <input type="hidden" name="child_id" value="<?php echo $row['child_id']; ?>">
-                    <button type="submit" name="delete_child" class="btn btn-danger"><a href="php/delete.php"></a><i class="fa fa-trash"></i></button>
+                    <button type="submit" name="delete_child" class="btn btn-danger"><a href="PHP/delete.php"></a><i class="fa fa-trash"></i></button>
                 </form>
                 </td>
             </tr>
-            <?php } ?>
+            <?php }
+            ?>
         </tbody>
     </table>
 </div>
@@ -105,8 +105,8 @@ session_start();
           </tr>
       </thead>
       <tbody class="table table-light">
-          <?php 
-         $sql = "SELECT *, child_tbl.firstname, child_tbl.lastname, vaccine.vaccinename, healthcare_info.vaccinatorname, chart.dateofvaccination, healthcenter_tbl.healthcenter 
+          <?php
+          $sql = "SELECT *, child_tbl.firstname, child_tbl.lastname, vaccine.vaccinename, healthcare_info.vaccinatorname, chart.dateofvaccination, healthcenter_tbl.healthcenter 
          FROM ((((chart
          LEFT JOIN child_tbl ON chart.child_id = child_tbl.child_id)
          LEFT JOIN vaccine ON chart.vaccine_id = vaccine.vaccine_id)
@@ -116,12 +116,11 @@ session_start();
           $stmt = $con->prepare($sql);
           $stmt->execute();
           $result = $stmt->get_result();
-          while($row = $result->fetch_assoc()){
-          ?>
+          while ($row = $result->fetch_assoc()) { ?>
           <tr>
               <td hidden><?php echo $row['chart_id']; ?></td>  
               <td hidden><?php echo $row['child_id']; ?></td>
-              <td><?php echo $row['firstname'].'  '.$row['lastname']; ?></td>
+              <td><?php echo $row['firstname'] . '  ' . $row['lastname']; ?></td>
               <td><?php echo $row['vaccinename']; ?></td>
               <td><?php echo $row['dose']; ?></td>
               <td><?php echo $row['vaccinatorname']; ?></td>
@@ -133,13 +132,14 @@ session_start();
               <i class="fas fa-edit"></i>
               </button></td>
               <td>
-              <form action="php/delete.php" method="POST">
+              <form action="PHP/delete.php" method="POST">
                   <input type="hidden" name="chart_id" value="<?php echo $row['chart_id']; ?>">
-                  <button type="submit" name="delete_chart" class="btn btn-danger"><a href="php/delete.php"></a><i class="fa fa-trash"></i></button>
+                  <button type="submit" name="delete_chart" class="btn btn-danger"><a href="PHP/delete.php"></a><i class="fa fa-trash"></i></button>
               </form>
               </td>
           </tr>
-          <?php } ?>
+          <?php }
+          ?>
       </tbody>
   </table>
 </div>
@@ -169,32 +169,32 @@ session_start();
       </div>
       <div class="modal-body">
 
-      <form action="php/add_chart_admin.php" method="POST">    
+      <form action="PHP/add_chart_admin.php" method="POST">    
             Child Name
             <select name="child_id" class="form-control">
-                <?php  
+                <?php
                 $query = "SELECT * FROM child_tbl";
-                $result = mysqli_query($con,$query);  
-                while($rows=mysqli_fetch_assoc($result)){
-                  $child_id = $rows['child_id'];
-                  $firstname = $rows['firstname'];
-                  $lastname = $rows['lastname'];
-                  $middlename = $rows['middlename'];
-                  echo "<option value='$child_id'>$firstname $middlename $lastname</option>";
-                }                                     
+                $result = mysqli_query($con, $query);
+                while ($rows = mysqli_fetch_assoc($result)) {
+                    $child_id = $rows['child_id'];
+                    $firstname = $rows['firstname'];
+                    $lastname = $rows['lastname'];
+                    $middlename = $rows['middlename'];
+                    echo "<option value='$child_id'>$firstname $middlename $lastname</option>";
+                }
                 ?>
             </select>
             <br>                   
             Vaccine Name
             <select name="vaccine_id" class="form-control">
-                <?php  
+                <?php
                 $query = "SELECT * FROM vaccine";
-                $result = mysqli_query($con,$query);  
-                while($rows=mysqli_fetch_assoc($result)){
-                  $vaccine_id = $rows['vaccine_id'];
-                  $vaccinename = $rows['vaccinename'];
-                  echo "<option value='$vaccine_id'>$vaccinename</option>";
-                }                                     
+                $result = mysqli_query($con, $query);
+                while ($rows = mysqli_fetch_assoc($result)) {
+                    $vaccine_id = $rows['vaccine_id'];
+                    $vaccinename = $rows['vaccinename'];
+                    echo "<option value='$vaccine_id'>$vaccinename</option>";
+                }
                 ?>
             </select> 
             <br>
@@ -207,15 +207,15 @@ session_start();
             <br>
             Vaccinator's Name 
             <select name="vaccinatorname" class="form-control">
-                <?php 
+                <?php
                 $query = "SELECT * FROM healthcare_info";
-                $result = mysqli_query($con,$query);
-                while( $rows=mysqli_fetch_assoc($result)){
-                  $healthcare_id = $rows['healthcare_id'];
-                  $vaccinatorname = $rows['vaccinatorname'];
-                  echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                } 
-              ?>
+                $result = mysqli_query($con, $query);
+                while ($rows = mysqli_fetch_assoc($result)) {
+                    $healthcare_id = $rows['healthcare_id'];
+                    $vaccinatorname = $rows['vaccinatorname'];
+                    echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                }
+                ?>
             </select>    
             <br>
             Date of Vaccination    
@@ -223,14 +223,14 @@ session_start();
             <br>
             healthcenter
             <select name="healthcenter" class="form-control">
-                <?php  
+                <?php
                 $query = "SELECT * FROM healthcenter_tbl";
-                $result = mysqli_query($con,$query);  
-                while($rows=mysqli_fetch_assoc($result)){
-                  $healthcenter_id = $rows['healthcenter_id'];
-                  $healthcenter = $rows['healthcenter'];
-                  echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                }                                     
+                $result = mysqli_query($con, $query);
+                while ($rows = mysqli_fetch_assoc($result)) {
+                    $healthcenter_id = $rows['healthcenter_id'];
+                    $healthcenter = $rows['healthcenter'];
+                    echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                }
                 ?>
             </select>     
             <br>
@@ -282,7 +282,7 @@ $(document).ready(function(){
       // alert(child_id);
  
         $.ajax({
-          url: "php/view_child_admin_modal.php",
+          url: "PHP/view_child_admin_modal.php",
           type: "post",
           data:{child_id: child_id},
           success:function(data){
@@ -298,7 +298,7 @@ $(document).ready(function(){
       // alert(chart_id);
   
       $.ajax({
-          url: "php/edit_chart_admin_modal.php",
+          url: "PHP/edit_chart_admin_modal.php",
           type: "post",
           data:{chart_id: chart_id},
           success:function(data){

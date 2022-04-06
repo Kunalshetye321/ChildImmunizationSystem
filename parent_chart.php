@@ -1,14 +1,12 @@
-<?php 
+<?php
 session_start();
 error_reporting(0);
-include("php/connection.php");
-include("php/functions.php");
+include "PHP/connection.php";
+include "PHP/functions.php";
 
 $child_data = chart($con);
 
-
 $id = $_SESSION['parent_id'];
-
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +18,7 @@ $id = $_SESSION['parent_id'];
     <title>Vaccine Chart | Parent</title>
     <link rel= "stylesheet" href = "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.js"></script>
-    <link rel="stylesheet" href="parent_chart.css">
+    <link rel="stylesheet" href="CSS/parent_chart.css">
     <!-- Datatables -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.11.0/css/dataTables.bootstrap4.min.css">
@@ -45,7 +43,7 @@ $id = $_SESSION['parent_id'];
     <div class="dropdown">
       <button class="dropbtn"><i class="fa fa-caret-down"></i></button>
       <div class="dropdown-content">
-      <a href="./php/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
+      <a href="./PHP/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
       </div>
     </div>
   </ul>
@@ -65,37 +63,36 @@ $id = $_SESSION['parent_id'];
           </tr>
       </thead>
       <tbody>
-<?php 
+<?php
 $sql = "SELECT * FROM child_tbl where parent_id='$id'";
 $stmt = $con->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
-$child_ids = array();
-while($row = $result->fetch_assoc()){
-$child_ids[] = $row['child_id'];
+$child_ids = [];
+while ($row = $result->fetch_assoc()) {
+    $child_ids[] = $row['child_id'];
 }
 foreach ($child_ids as $value) {
-$sql = "SELECT *, vaccine.vaccinename, healthcare_info.vaccinatorname, chart.dateofvaccination, healthcenter_tbl.healthcenter 
+    $sql = "SELECT *, vaccine.vaccinename, healthcare_info.vaccinatorname, chart.dateofvaccination, healthcenter_tbl.healthcenter 
 FROM (((chart
 RIGHT JOIN vaccine ON chart.vaccine_id = vaccine.vaccine_id)
 RIGHT JOIN healthcare_info ON chart.healthcare_id = healthcare_info.healthcare_id)
 RIGHT JOIN  healthcenter_tbl ON chart.healthcenter_id = healthcenter_tbl.healthcenter_id)
 where child_id='$value'";
-$stmt = $con->prepare($sql);
-$stmt->execute();
-$result = $stmt->get_result();
-while($row=mysqli_fetch_assoc($result)){
-?>
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = mysqli_fetch_assoc($result)) { ?>
 <tr>
-<td><?php 
-            $sql1 = "SELECT * FROM child_tbl where child_id='$value'";
-            $stmt1 = $con->prepare($sql1);
-            $stmt1->execute();
-            $result1 = $stmt1->get_result();
-            while($row1 = $result1->fetch_assoc()){
-               echo $row1['firstname']."  ".$row1['lastname'];
-            }
-            ?></td>
+<td><?php
+$sql1 = "SELECT * FROM child_tbl where child_id='$value'";
+$stmt1 = $con->prepare($sql1);
+$stmt1->execute();
+$result1 = $stmt1->get_result();
+while ($row1 = $result1->fetch_assoc()) {
+    echo $row1['firstname'] . "  " . $row1['lastname'];
+}
+?></td>
 <td><?php echo $row['vaccinename']; ?></td>
     <td><?php echo $row['dose']; ?></td>
     <td><?php echo $row['dateofvaccination']; ?></td>
@@ -104,7 +101,9 @@ while($row=mysqli_fetch_assoc($result)){
     <td><?php echo $row['vaccinated']; ?></td>         
     </td>
 </tr>
-<?php }}?>
+<?php }
+}
+?>
 </tbody>
   </table>
   </center></div>

@@ -1,8 +1,7 @@
-<?php 
-include("php/connection.php");
+<?php
+include "PHP/connection.php";
 $query1 = "SELECT * FROM healthcenter_tbl";
-$result1 = mysqli_query($con,$query1);
-
+$result1 = mysqli_query($con, $query1);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +31,7 @@ $result1 = mysqli_query($con,$query1);
           <div class="dropdown">
             <button class="dropbtn"><i class="fa fa-caret-down"></i></button>
             <div class="dropdown-content">
-            <a href="php/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
+            <a href="PHP/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
             </div>
           </div>
         </ul>
@@ -48,7 +47,7 @@ $result1 = mysqli_query($con,$query1);
           </div>
           <div class="modal-body">
 
-            <form action="php/updateuser.php" class="sign-up-form" method="post">
+            <form action="PHP/updateuser.php" class="sign-up-form" method="post">
        
             <h2 class="title">Sign up</h2>
             <!-- INSERT CODE HERE FOR ERROR -->
@@ -60,13 +59,13 @@ $result1 = mysqli_query($con,$query1);
             </div>
             <div> <!-- Dropdown -->
             <select name="username">
-            <?php 
+            <?php
             $query = "SELECT username FROM parent_tbl";
-            $result = mysqli_query($con,$query);
-            while($rows=mysqli_fetch_assoc($result)){
-              $get_data = $rows['username'];
-              echo "<option value='$get_data'>$get_data</option>";
-            } 
+            $result = mysqli_query($con, $query);
+            while ($rows = mysqli_fetch_assoc($result)) {
+                $get_data = $rows['username'];
+                echo "<option value='$get_data'>$get_data</option>";
+            }
             ?>
 
             </select>	
@@ -120,13 +119,12 @@ $result1 = mysqli_query($con,$query1);
             </tr>
         </thead>
         <tbody>
-            <?php 
+            <?php
             $sql = "SELECT * FROM child_tbl";
             $stmt = $con->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
-            while($row = $result->fetch_assoc()){
-            ?>
+            while ($row = $result->fetch_assoc()) { ?>
             <tr>
                 <td><?php echo $row['child_id']; ?></td>
                 <td><?php echo $row['firstname']; ?></td>               
@@ -136,13 +134,14 @@ $result1 = mysqli_query($con,$query1);
                update
                 </button></td>
                 <td>
-                <form action="php/delete.php" method="POST">
+                <form action="PHP/delete.php" method="POST">
                     <input type="hidden" name="child_id" value="<?php echo $row['child_id']; ?>">
-                    <button type="submit" name="delete_btn" class="btn btn-danger"><a href="php/delete.php"></a>Delete</button>
+                    <button type="submit" name="delete_btn" class="btn btn-danger"><a href="PHP/delete.php"></a>Delete</button>
                 </form>
                 </td>
             </tr>
-            <?php } ?>
+            <?php }
+            ?>
         </tbody>
     </table>
 </div>
@@ -161,7 +160,7 @@ $result1 = mysqli_query($con,$query1);
             </thead>
             <tbody>
 
-                <form action="php/vaccine_chart.php" method="POST">
+                <form action="PHP/vaccine_chart.php" method="POST">
                   <tr>
                     <td> BCG </td>
                     <td> 1 <br>(Birth) </td>
@@ -170,27 +169,27 @@ $result1 = mysqli_query($con,$query1);
                       <input type="datetime-local" id="dtlocal" name="bcg1st">                     
                     <td>
                     <select name="bcgvaccinatorname">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>	
                     </td>
                     <td>             
                       <select name="bcghealthcenter">
-                      <?php  
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                    
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	     
                       </td>
@@ -208,7 +207,7 @@ $result1 = mysqli_query($con,$query1);
 
 
 
-                <form action="php/vaccine_chart.php" method="POST">
+                <form action="PHP/vaccine_chart.php" method="POST">
                   <tr>
                     <td> HEPATITIS B </td>
                     <td> 1 <br>(Birth) </td>
@@ -217,27 +216,27 @@ $result1 = mysqli_query($con,$query1);
                       <input type="datetime-local" id="dtlocal" name="hepatitis1st">                     
                     <td>
                     <select name="hepatitisvaccinatorname">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>	
                     </td>
                     <td>
                     <select name="hepatitishealthcenter">
-                      <?php  
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                    
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                     </td>
@@ -268,75 +267,75 @@ $result1 = mysqli_query($con,$query1);
                     </td>
                     <td>
                     <select name="pentavalentvaccinatorname1st">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>	
                     <br><br>
                     <select name="pentavalentvaccinatorname2nd">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>	
                     <br><br>
                     <select name="pentavalentvaccinatorname3rd">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>	
                     </td>
                     <td>
                     <select name="pentavalenthealthcenter1st">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                       <br><br>
                       <select name="pentavalenthealthcenter2nd">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                       <br><br>
                       <select name="pentavalenthealthcenter3rd">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                     </td>
@@ -365,76 +364,76 @@ $result1 = mysqli_query($con,$query1);
                     <td>
                       <br><br>
                       <select name="opvvaccinatorname1st">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>
                       <br><br>
                       <select name="opvvaccinatorname2nd">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>
                       <br><br>
                       <select name="opvvaccinatorname3rd">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>
                     </td>
                     <td>
                       <br><br>
                       <select name="opvhealthcenter1st">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                       <br><br>
                       <select name="opvhealthcenter2nd">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                       <br><br>
                       <select name="opvhealthcenter3rd">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                     </td>
@@ -458,28 +457,28 @@ $result1 = mysqli_query($con,$query1);
                     <td>
                       <br>
                       <select name="inactivepoliovaccinatorname">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>
                     </td>
                     <td>
                       <br>
                       <select name="inactivepoliohealthcenter">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                     </td>
@@ -509,76 +508,76 @@ $result1 = mysqli_query($con,$query1);
                     <td>
                       <br><br>
                       <select name="pneumococcalvaccinatorname1st">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>
                       <br><br>
                       <select name="pneumococcalvaccinatorname2nd">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>
                       <br><br>
                       <select name="pneumococcalvaccinatorname3rd">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>
                     </td>
                     <td>
                       <br><br>
                       <select name="pneumococcalhealthcenter1st">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                       <br><br>
                       <select name="pneumococcalhealthcenter2nd">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                       <br><br>
                       <select name="pneumococcalhealthcenter3rd">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                     </td>
@@ -606,52 +605,52 @@ $result1 = mysqli_query($con,$query1);
                     <td>
                     <br><br>
                     <select name="mmrvaccinatorname1st">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>
                       <br><br>
                       <select name="mmrvaccinatorname2nd">
-                      <?php 
+                      <?php
                       $query = "SELECT * FROM healthcare_info";
-                      $result = mysqli_query($con,$query);
-                      while( $rows=mysqli_fetch_assoc($result)){
-                        $healthcare_id = $rows['healthcare_id'];
-                        $vaccinatorname = $rows['vaccinatorname'];
-                        echo "<option value='$healthcare_id'>$vaccinatorname</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcare_id = $rows['healthcare_id'];
+                          $vaccinatorname = $rows['vaccinatorname'];
+                          echo "<option value='$healthcare_id'>$vaccinatorname</option>";
+                      }
                       ?>
                     </select>
                     </td>
                     <td>
                     <br><br>
                     <select name="mmrhealthcenter1st">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                       <br><br>
                       <select name="mmrhealthcenter2nd">
-                      <?php    
+                      <?php
                       $query = "SELECT * FROM healthcenter_tbl";
-                      $result = mysqli_query($con,$query);                  
-                      while($rows=mysqli_fetch_assoc($result)){
-                        $healthcenter_id = $rows['healthcenter_id'];
-                        $healthcenter = $rows['healthcenter'];
-                        echo "<option value='$healthcenter_id'>$healthcenter</option>";
-                      } 
+                      $result = mysqli_query($con, $query);
+                      while ($rows = mysqli_fetch_assoc($result)) {
+                          $healthcenter_id = $rows['healthcenter_id'];
+                          $healthcenter = $rows['healthcenter'];
+                          echo "<option value='$healthcenter_id'>$healthcenter</option>";
+                      }
                       ?>
                       </select>	
                     </td>

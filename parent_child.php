@@ -1,15 +1,14 @@
-<?php 
+<?php
 error_reporting(0);
 session_start();
 
-include("php/connection.php");
-include("php/functions.php");
+include "PHP/connection.php";
+include "PHP/functions.php";
 
 $user_data = check_login($con);
 $child_data = child($con);
 
 $parent_id = $user_data['parent_id'];
-
 ?>
 
 <!DOCTYPE html>
@@ -23,7 +22,7 @@ $parent_id = $user_data['parent_id'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.js"></script>
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="parent_child.css">
+    <link rel="stylesheet" href="CSS/parent_child.css">
 </head>
 <body>
 
@@ -43,7 +42,7 @@ $parent_id = $user_data['parent_id'];
     <div class="dropdown">
       <button class="dropbtn"><i class="fa fa-caret-down"></i></button>
       <div class="dropdown-content">
-      <a href="./php/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
+      <a href="./PHP/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
       </div>
     </div>
   </ul>
@@ -64,8 +63,10 @@ Add Child
       </div>
       <div class="modal-body">
 
-        <form class="form-inline" action="php/add_parent_child.php" method="post"  style=" width: 100%">
-        <input hidden type="text" class="form-control"  name="parent_id" value=<?php if(isset($parent_id)) echo $parent_id; ?>>
+        <form class="form-inline" action="PHP/add_parent_child.php" method="post"  style=" width: 100%">
+        <input hidden type="text" class="form-control"  name="parent_id" value=<?php if (isset($parent_id)) {
+            echo $parent_id;
+        } ?>>
           <div class="container" >
               <label class="label">First Name:</label>
               <input type="text" class="form-control"  name="firstname">
@@ -101,7 +102,7 @@ Add Child
               <input type="radio" id="male" name="sex"  value="male">
               <label for="male">Male</label>
               <input type="radio" id="female" name="sex"  value="female">
-              <label for="female">Female</label>
+              <label for="female">Female</label>
             </div>
             <div class="clearfix">
                 <button type="submit" class="btn btn-primary" name="add">Add</button>
@@ -125,22 +126,22 @@ Add Child
             </tr>
         </thead>
         <tbody class="table table-light" style="line-height: 20px">
-            <?php 
+            <?php
             $sql = "SELECT * FROM child_tbl where parent_id='$parent_id'";
             $stmt = $con->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
-            while($row = $result->fetch_assoc()){
-            ?>
+            while ($row = $result->fetch_assoc()) { ?>
             <tr>
                 <td hidden><?php echo $row['parent_id']; ?></td>
                 <td hidden><?php echo $row['child_id']; ?></td>
-                <td><?php echo $row['firstname']."  ".$row['lastname']; ?></td>                           
+                <td><?php echo $row['firstname'] . "  " . $row['lastname']; ?></td>                           
                 <td><button id="id-<?php echo $row['child_id']; ?>" type="button" class="btn btn-primary editbtn" style="color: black; border: none">
                 <i class="fa fa-arrow-circle-right"></i>
                 </button></td>
             </tr>
-            <?php } ?>
+            <?php }
+            ?>
         </tbody>
     </table>
 </div>
@@ -165,61 +166,84 @@ Add Child
 <!--Step 1:Adding HTML-->
 <h2><i class="fa fa-child"></i>Profile</h2>
 
-<?php 
+<?php
 $sql = "SELECT * FROM child_tbl where parent_id='$parent_id'";
 $stmt = $con->prepare($sql);
 $stmt->execute();
 $result = $stmt->get_result();
-$child_ids = array();
-while($row = $result->fetch_assoc()){
-$child_ids[] = $row['child_id'];
+$child_ids = [];
+while ($row = $result->fetch_assoc()) {
+    $child_ids[] = $row['child_id'];
 }
 foreach ($child_ids as $value) {
-$sql = "SELECT * FROM child_tbl where child_id='$value'";
-$stmt = $con->prepare($sql);
-$stmt->execute();
-$result = $stmt->get_result();
-while($row=mysqli_fetch_assoc($result)){
-?>
+    $sql = "SELECT * FROM child_tbl where child_id='$value'";
+    $stmt = $con->prepare($sql);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    while ($row = mysqli_fetch_assoc($result)) { ?>
 <form class="form-inline-1" action="/action_page.php"  style="border:1px solid #ccc">
 <div class="container">
     <label class="label">First Name:</label>
-    <input type="text" value=<?php if(isset($row['firstname'])) echo $row['firstname']; ?>>
+    <input type="text" value=<?php if (isset($row['firstname'])) {
+        echo $row['firstname'];
+    } ?>>
 <br>
     <label class="label">Middle Name:</label>
-    <input type="text" value=<?php if(isset($row['middlename'])) echo $row['middlename']; ?>>
+    <input type="text" value=<?php if (isset($row['middlename'])) {
+        echo $row['middlename'];
+    } ?>>
 
     <label class="label">Last Name:</label>
-    <input type="text" value=<?php if(isset($row['lastname'])) echo $row['lastname']; ?>>
+    <input type="text" value=<?php if (isset($row['lastname'])) {
+        echo $row['lastname'];
+    } ?>>
 <br>
     <label class="label">Date of Birth:</label>
-    <input type="text" value=<?php if(isset($row['dateofbirth'])) echo $row['dateofbirth']; ?>>
+    <input type="text" value=<?php if (isset($row['dateofbirth'])) {
+        echo $row['dateofbirth'];
+    } ?>>
 
     <label for="pwd" class="label">Place of Birth:</label>
-    <input type="text" value=<?php if(isset($row['placeofbirth'])) echo $row['placeofbirth']; ?>>
+    <input type="text" value=<?php if (isset($row['placeofbirth'])) {
+        echo $row['placeofbirth'];
+    } ?>>
 <br>
     <label class="label">Address:</label>
-    <input type="text" value=<?php if(isset($row['address'])) echo $row['address']; ?>>
+    <input type="text" value=<?php if (isset($row['address'])) {
+        echo $row['address'];
+    } ?>>
 <br>
     <label class="label">Mother's Name:</label>
-    <input type="text" value=<?php if(isset($row['mothername'])) echo $row['mothername']; ?>>
+    <input type="text" value=<?php if (isset($row['mothername'])) {
+        echo $row['mothername'];
+    } ?>>
 
     <label for="pwd" class="label">Father's Name:</label>
-    <input type="text" value=<?php if(isset($row['fathername'])) echo $row['fathername']; ?>>
+    <input type="text" value=<?php if (isset($row['fathername'])) {
+        echo $row['fathername'];
+    } ?>>
 <br>
     <label class="label">Birth Height:</label>
-    <input type="text" value=<?php if(isset($row['birthheight'])) echo $row['birthheight']; ?>>
+    <input type="text" value=<?php if (isset($row['birthheight'])) {
+        echo $row['birthheight'];
+    } ?>>
 <br>
     <label for="pwd" class="label"> Birth Weight:</label>
-    <input type="text" value=<?php if(isset($row['birthweight'])) echo $row['birthweight']; ?>>
+    <input type="text" value=<?php if (isset($row['birthweight'])) {
+        echo $row['birthweight'];
+    } ?>>
 <br>
     <label  class="label">Sex:</label>
-    <input type="text" value=<?php if(isset($row['sex'])) echo $row['sex']; ?>>
+    <input type="text" value=<?php if (isset($row['sex'])) {
+        echo $row['sex'];
+    } ?>>
     </div>
     </div>
 </form>
 <br>
-<?php }}?>
+<?php }
+}
+?>
 
 
 <!-- Modal -->
@@ -234,7 +258,7 @@ $(document).ready(function(){
       // alert(chart_id);
   
       $.ajax({
-          url: "php/edit_parent_child_modal.php",
+          url: "PHP/edit_parent_child_modal.php",
           type: "post",
           data:{child_id: child_id},
           success:function(data){

@@ -1,8 +1,8 @@
-<?php 
+<?php
 session_start();
 
-include("php/connection.php");
-include("php/functions.php");
+include "PHP/connection.php";
+include "PHP/functions.php";
 
 $user_data = check_login($con);
 
@@ -10,42 +10,42 @@ $user_data = check_login($con);
 // ITEXMO SEND SMS API - PHP - CURL-LESS METHOD
 // Visit www.itexmo.com/developers.php for more info about this API
 //##########################################################################
-function itexmo($number,$message,$apicode,$passwd){
+function itexmo($number, $message, $apicode, $passwd)
+{
     $url = 'https://www.itexmo.com/php_api/api.php';
-    $itexmo = array('1' => $number, '2' => $message, '3' => $apicode, 'passwd' => $passwd);
-    $param = array(
-        'http' => array(
-            'header'  => "Content-type: application/x-www-form-urlencoded\r\n",
-            'method'  => 'POST',
+    $itexmo = ['1' => $number, '2' => $message, '3' => $apicode, 'passwd' => $passwd];
+    $param = [
+        'http' => [
+            'header' => "Content-type: application/x-www-form-urlencoded\r\n",
+            'method' => 'POST',
             'content' => http_build_query($itexmo),
-        ),
-    );
-    $context  = stream_context_create($param);
+        ],
+    ];
+    $context = stream_context_create($param);
     return file_get_contents($url, false, $context);
 }
 //##########################################################################
 
-if($_POST){
+if ($_POST) {
     $number = $_POST['number'];
     $name = $_POST['name'];
     $msg = $_POST['msg'];
     $api = "TR-PATPE797790_QMKWB";
     $pass = "2[)ewnm4cn";
-    $text = $name.":   ".$msg;
+    $text = $name . ":   " . $msg;
 
-    if(!empty($_POST['name']) && ($_POST['number']) && ($_POST['msg'])){
-$result = itexmo($number,$text,$api,$pass);
-    if ($result == ""){
-    echo "iTexMo: No response from server!!!
+    if (!empty($_POST['name']) && $_POST['number'] && $_POST['msg']) {
+        $result = itexmo($number, $text, $api, $pass);
+        if ($result == "") {
+            echo "iTexMo: No response from server!!!
     Please check the METHOD used (CURL or CURL-LESS). If you are using CURL then try CURL-LESS and vice versa.	
-    Please CONTACT US for help. ";	
-    }else if ($result == 0){
-    echo "Message Sent!";
+    Please CONTACT US for help. ";
+        } elseif ($result == 0) {
+            echo "Message Sent!";
+        } else {
+            echo "Error Num " . $result . " was encountered!";
+        }
     }
-    else{	
-    echo "Error Num ". $result . " was encountered!";
-    }
-}
 }
 ?>
 <!DOCTYPE html>
@@ -55,7 +55,7 @@ $result = itexmo($number,$text,$api,$pass);
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/admin_sms.css">
+    <link rel="stylesheet" href="./CSS/admin_sms.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.js"></script>
@@ -79,7 +79,7 @@ $result = itexmo($number,$text,$api,$pass);
           <div class="dropdown">
             <button class="dropbtn"><i class="fa fa-caret-down"></i></button>
             <div class="dropdown-content">
-            <a href="php/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
+            <a href="PHP/logout.php"><i class="fas fa-sign-out-alt" id="icon"></i>Logout</a>
             </div>
             
           </div>
@@ -110,7 +110,7 @@ $result = itexmo($number,$text,$api,$pass);
    
     <!-- sms -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="JS/bootstrap.min.js"></script>
 
         <script>
             function countChar(val){

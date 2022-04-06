@@ -1,17 +1,17 @@
-<?php 
+<?php
 session_start();
 
-include("php/connection.php");
-include("php/functions.php");
+include "PHP/connection.php";
+include "PHP/functions.php";
 
 $user_data = check_login($con);
 
 $sql = "SELECT vaccinated FROM chart where vaccinated='yes'";
-$result=mysqli_query($con,$sql);
-$complete=mysqli_num_rows($result);
+$result = mysqli_query($con, $sql);
+$complete = mysqli_num_rows($result);
 $sql2 = "SELECT vaccinated FROM chart where vaccinated='no'";
-$result2=mysqli_query($con,$sql2);
-$Incomplete=mysqli_num_rows($result2);
+$result2 = mysqli_query($con, $sql2);
+$Incomplete = mysqli_num_rows($result2);
 ?>
 <html>
   <head>
@@ -23,23 +23,26 @@ $Incomplete=mysqli_num_rows($result2);
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Year', 'NO. OF CHILDREN', 'NO. OF VACCINATED '],
-          <?php 
-            $sql = "SELECT * FROM vaccine";
-            $stmt = $con->prepare($sql);
-            $stmt->execute();
-            $result = $stmt->get_result();
-            while($row = $result->fetch_assoc()){
-            $vaccine_id = $row['vaccine_id'];
-            $vaccinename = $row['vaccinename'];
-            $sql1 = "SELECT * FROM chart where vaccine_id='$vaccine_id'";
-            $result1=mysqli_query($con,$sql1);
-            $rowcount=mysqli_num_rows($result1);
-            $sql2 = "SELECT vaccinated FROM chart where vaccinated='yes' AND vaccine_id='$vaccine_id'";
-            $result2=mysqli_query($con,$sql2);
-            $rowcount2=mysqli_num_rows($result2);
-            ?>   
+          <?php
+          $sql = "SELECT * FROM vaccine";
+          $stmt = $con->prepare($sql);
+          $stmt->execute();
+          $result = $stmt->get_result();
+          while ($row = $result->fetch_assoc()) {
+
+              $vaccine_id = $row['vaccine_id'];
+              $vaccinename = $row['vaccinename'];
+              $sql1 = "SELECT * FROM chart where vaccine_id='$vaccine_id'";
+              $result1 = mysqli_query($con, $sql1);
+              $rowcount = mysqli_num_rows($result1);
+              $sql2 = "SELECT vaccinated FROM chart where vaccinated='yes' AND vaccine_id='$vaccine_id'";
+              $result2 = mysqli_query($con, $sql2);
+              $rowcount2 = mysqli_num_rows($result2);
+              ?>   
           [' <?php echo $vaccinename; ?>', <?php echo $rowcount; ?>, <?php echo $rowcount2; ?>],
-          <?php } ?>
+          <?php
+          }
+          ?>
         ]);
      
         var options = {
