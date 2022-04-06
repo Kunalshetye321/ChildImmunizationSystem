@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 05, 2022 at 07:19 PM
+-- Generation Time: Apr 06, 2022 at 04:48 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -39,7 +39,7 @@ CREATE TABLE `admin_tbl` (
 --
 
 INSERT INTO `admin_tbl` (`admin_id`, `email`, `username`, `password`) VALUES
-(1, '', 'admin', 'admin123');
+(1, '', 'admin', 'admin1234');
 
 -- --------------------------------------------------------
 
@@ -57,18 +57,6 @@ CREATE TABLE `chart` (
   `healthcenter_id` int(11) NOT NULL,
   `vaccinated` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `chart`
---
-
-INSERT INTO `chart` (`chart_id`, `child_id`, `vaccine_id`, `dose`, `healthcare_id`, `dateofvaccination`, `healthcenter_id`, `vaccinated`) VALUES
-(379, 87, 7, 1, 1, '2022-01-03', 3, 'no'),
-(384, 90, 1, 1, 1, '2022-01-03', 1, 'no'),
-(385, 87, 3, 1, 1, '0000-00-00', 1, 'no'),
-(386, 87, 2, 1, 1, '0000-00-00', 1, 'no'),
-(387, 88, 1, 1, 1, '0000-00-00', 1, 'no'),
-(388, 87, 1, 1, 1, '0000-00-00', 1, 'no');
 
 -- --------------------------------------------------------
 
@@ -97,9 +85,9 @@ CREATE TABLE `child_tbl` (
 --
 
 INSERT INTO `child_tbl` (`child_id`, `parent_id`, `firstname`, `lastname`, `middlename`, `dateofbirth`, `placeofbirth`, `address`, `fathername`, `mothername`, `birthheight`, `birthweight`, `sex`) VALUES
-(91, 18, 'Akash', 'Singh', 'Vishal', '2015-08-05', 'Mumbai', 'Vasai', 'Vishal', 'Rohini', 4, 15, 'male'),
 (92, 22, 'Amit', 'Patil', 'Ayush', '2008-02-01', 'Mumbai', 'Mumbai', 'Ayush', 'Anita', 3, 20, 'male'),
-(93, 22, 'Amita', 'Patil', 'Ayush', '2010-02-01', 'Mumbai', 'Mumbai', 'Ayush', 'Anita', 2, 15, 'female');
+(93, 22, 'Amita', 'Patil', 'Ayush', '2010-02-01', 'Mumbai', 'Mumbai', 'Ayush', 'Anita', 2, 15, 'female'),
+(94, 18, 'Vivek', 'Rane', 'Vishal', '2015-03-02', 'Dadar', 'Dadar', 'Vishal', 'Vinita', 2, 20, 'male');
 
 -- --------------------------------------------------------
 
@@ -176,12 +164,8 @@ CREATE TABLE `healthcare_info` (
 --
 
 INSERT INTO `healthcare_info` (`healthcare_id`, `vaccinatorname`) VALUES
-(1, 'dexter'),
-(2, 'fely'),
-(3, 'christian'),
-(4, 'eyow'),
-(52, 'camelle'),
-(54, 'inuyasha');
+(1, 'Dr Vijay'),
+(2, 'Dr Rashmika');
 
 -- --------------------------------------------------------
 
@@ -199,17 +183,8 @@ CREATE TABLE `healthcenter_tbl` (
 --
 
 INSERT INTO `healthcenter_tbl` (`healthcenter_id`, `healthcenter`) VALUES
-(1, 'center'),
-(2, 'talon'),
-(3, 'ramos'),
-(65, 'agoo'),
-(66, 'Wk9iSVhkSXk4RkdURHZsd2hIclNmQT09OjrOpcdXIFvljF+5/fgmQbnu'),
-(67, 'd2tGaGg0RHhYb2ZIRzJWeVprOWxCdz09OjpTzVVE+/QdVmRmQac/RD2E'),
-(68, 'aXE4QmJJTVVuckJSQnF5Vk1WRi9qUT09Ojrc2AvNjPEIJNRtAwkqjmBJ'),
-(69, 'NE9hampqN3I0ZnVJeDFJQ0MwVkVlUT09OjomNXFI3We2Bd4NcWbVPkMA'),
-(70, 'V29CWXpQUWY1VVVNTnNuSUJxdWhqQT09OjqGkXnayICdANWWtSySD8y3'),
-(71, 'VGlBcFBXb0FaYkgzSUV3QTRGR3BJUT09OjoEgWQIPWBHIoKuTRM1Arhj'),
-(72, 'L1dGL3FzK1lnSTFnb0trWE1VODdPZz09OjoKStkQZV1+iivnH2TC/O3n');
+(1, 'Mumbai'),
+(2, 'Palghar');
 
 -- --------------------------------------------------------
 
@@ -259,7 +234,8 @@ INSERT INTO `vaccine` (`vaccine_id`, `vaccinename`) VALUES
 (4, 'Oral Polio'),
 (5, 'Inactivated Polio'),
 (6, 'Pneumococcal Conjugate'),
-(7, 'Measles, Mumps, Rubella (MMR)');
+(7, 'Measles, Mumps, Rubella (MMR)'),
+(64, '');
 
 -- --------------------------------------------------------
 
@@ -419,7 +395,7 @@ ALTER TABLE `chart`
 -- AUTO_INCREMENT for table `child_tbl`
 --
 ALTER TABLE `child_tbl`
-  MODIFY `child_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
+  MODIFY `child_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
 
 --
 -- AUTO_INCREMENT for table `comments`
@@ -437,7 +413,7 @@ ALTER TABLE `guide`
 -- AUTO_INCREMENT for table `healthcare_info`
 --
 ALTER TABLE `healthcare_info`
-  MODIFY `healthcare_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `healthcare_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `healthcenter_tbl`
@@ -455,7 +431,7 @@ ALTER TABLE `parent_tbl`
 -- AUTO_INCREMENT for table `vaccine`
 --
 ALTER TABLE `vaccine`
-  MODIFY `vaccine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `vaccine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `vaccine_information`
