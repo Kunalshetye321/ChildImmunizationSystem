@@ -1,7 +1,7 @@
 <?php
 include "PHP/connection.php";
 include "PHP/functions.php";
-include "PHP/sendmail.php";
+include "sendmail.php";
 
 $user_data = check_login($con);
 

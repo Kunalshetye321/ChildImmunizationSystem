@@ -1,5 +1,10 @@
 <?php
 
+require_once realpath(__DIR__ . '/vendor/autoload.php');
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -10,6 +15,9 @@ require_once "PHPMailer/src/Exception.php";
 
 function sendEmail($email, $name, $message)
 {
+    $email = $_ENV['EMAIL'];
+    $pass = $_ENV['PASS'];
+
     $mail = new PHPMailer(true);
 
     //Enable SMTP debugging.
@@ -33,8 +41,8 @@ function sendEmail($email, $name, $message)
     ];
 
     //Provide username and password
-    $mail->Username = "childimmunizationcenter@gmail.com";
-    $mail->Password = "Akash@9867";
+    $mail->Username = $email;
+    $mail->Password = $pass;
 
     //If SMTP requires TLS encryption then set it
     $mail->SMTPSecure = "tls";
@@ -42,7 +50,7 @@ function sendEmail($email, $name, $message)
     //Set TCP port to connect to
     $mail->Port = 587;
 
-    $mail->From = "childimmunizationcenter@gmail.com";
+    $mail->From = $email;
     $mail->FromName = "Child Immunization Center";
 
     $mail->addAddress($email, $name);

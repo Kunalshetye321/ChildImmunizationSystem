@@ -3,7 +3,6 @@ session_start();
 error_reporting();
 include "PHP/connection.php";
 include "PHP/functions.php";
-include "PHP/sendmail.php";
 
 $user_data = check_login($con);
 
