@@ -3,6 +3,7 @@ session_start();
 error_reporting();
 include "PHP/connection.php";
 include "PHP/functions.php";
+include "vaccinedate.php";
 
 $user_data = check_login($con);
 
@@ -63,16 +64,19 @@ $parent_id = $user_data['parent_id'];
 
       while ($row = $result->fetch_assoc()) {
 
+          $parentFN = $row['fathername'];
           $childFN = $row['firstname'];
           $childLN = $row['lastname'];
           $dob = $row['dateofbirth'];
 
-          $dateOfBirth = $dob;
+          $dateOfBirth = new DateTime($dob);
           $today = date("Y-m-d");
-          $diff = date_diff(date_create($dateOfBirth), date_create($today));
+          $diff = date_diff(date_create($dob), date_create($today));
           $age = $diff->format('%y');
 
-          echo "<center><h3>Schedule for " . $childFN . " " . $childLN . " (" . $dob . ")</h3></center>";
+          echo "<center><h3>Schedule for " . $childFN . " " . $childLN . "</h3></center>";
+          echo "<center><h4>DOB : " . $dateOfBirth->format('d-m-Y') . "</h4></center>";
+          echo "<center><h4>Age : " . $age . " years</h4></center>";
           ?>
         <center><table class="table" style="width: 60%; margin-bottom: 30px; border-collapse: separate; font-size: 16px">
       <thead style="line-height: 40px">
@@ -83,54 +87,19 @@ $parent_id = $user_data['parent_id'];
       <tbody>
            <tbody>
                 <?php
-                $sql_v = "SELECT * FROM vaccine_schedule";
-                $stmt_v = $con->prepare($sql_v);
-                $stmt_v->execute();
-                $result_v = $stmt_v->get_result();
+                    $sql_v = "SELECT * FROM vaccine_schedule";
+                    $stmt_v = $con->prepare($sql_v);
+                    $stmt_v->execute();
+                    $result_v = $stmt_v->get_result();
 
-                while ($row = $result_v->fetch_assoc()) {
+                    while ($row = $result_v->fetch_assoc()) {
+                        $vaccinename = $row['vaccine_name'];
+                        $minage = $row['min_age'];
 
-                    $vaccinename = $row['vaccine_name'];
-                    $minage = $row['min_age'];
-
-                    // Min Age -
-                    $min_age = "";
-                    $years = $months = $weeks = $days = 0;
-                    $ignore = true;
-                    $total_time = $minage;
-
-                    $years = $total_time / 365;
-                    $years = floor($years);
-                    $months = ($total_time % 365) / 30;
-                    $months = floor($months);
-                    $days = ($total_time % 365) % 30;
-
-                    if ($years > 0) {
-                        if ($months > 0) {
-                            $min_age = $years * 12 + $months . " months ";
-                        } else {
-                            $min_age = $years . " years ";
-                        }
-                        $ignore = false;
-                    }
-                    if ($months > 0 && $ignore) {
-                        if ($days > 7 && $days < 30) {
-                            $min_age = $months * 30 + $days;
-                            $weeks = $min_age / 7;
-                            $min_age = $weeks . " weeks ";
-                            $ignore = false;
-                        } elseif ($days < 30) {
-                            $min_age = $min_age . $months . " months ";
-                        }
-                    }
-                    if ($days > 0 && $ignore) {
-                        $min_age = $min_age . $days . " days";
-                    }
-
-                    // Vaccine Due Date -
-                    $vaccinedate = new DateTime($dob);
-                    $vaccinedate->add(new DateInterval('P' . $minage . 'D'));
-                    ?>
+                        $vaccine_date = vaccineDate($minage,$dob);
+                        $min_age = $vaccine_date[0];
+                        $vaccinedate = new DateTime($vaccine_date[1]);
+                ?>
 
                   <tr>
                     <td><?php echo $min_age; ?></td>
@@ -144,7 +113,7 @@ $parent_id = $user_data['parent_id'];
 
           </tbody>
         </table></center>
-        
+
         <center><hr style="border: 0.5px solid black; width: 75%;"></center><br>
 
         <?php

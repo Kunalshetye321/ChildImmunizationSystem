@@ -13,7 +13,8 @@ require_once "PHPMailer/src/PHPMailer.php";
 require_once "PHPMailer/src/SMTP.php";
 require_once "PHPMailer/src/Exception.php";
 
-function sendEmail($email, $name, $message)
+
+function sendEmail($email, $subject, $message)
 {
     $email = $_ENV['EMAIL'];
     $pass = $_ENV['PASS'];
@@ -56,7 +57,7 @@ function sendEmail($email, $name, $message)
     $mail->addAddress($email, $name);
 
     $mail->isHTML(true);
-    $mail->Subject = "Vaccine Due " . $name . " Child Immunization Center";
+    $mail->Subject = $subject;
 
     $mail->Body = $message;
 
