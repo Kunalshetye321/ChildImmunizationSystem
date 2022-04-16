@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2022 at 04:48 PM
+-- Generation Time: Apr 16, 2022 at 10:00 AM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -57,6 +57,13 @@ CREATE TABLE `chart` (
   `healthcenter_id` int(11) NOT NULL,
   `vaccinated` varchar(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `chart`
+--
+
+INSERT INTO `chart` (`chart_id`, `child_id`, `vaccine_id`, `dose`, `healthcare_id`, `dateofvaccination`, `healthcenter_id`, `vaccinated`) VALUES
+(389, 92, 1, 1, 1, '2022-04-13', 1, 'yes');
 
 -- --------------------------------------------------------
 
@@ -234,8 +241,7 @@ INSERT INTO `vaccine` (`vaccine_id`, `vaccinename`) VALUES
 (4, 'Oral Polio'),
 (5, 'Inactivated Polio'),
 (6, 'Pneumococcal Conjugate'),
-(7, 'Measles, Mumps, Rubella (MMR)'),
-(64, '');
+(7, 'Measles, Mumps, Rubella (MMR)');
 
 -- --------------------------------------------------------
 
@@ -246,7 +252,7 @@ INSERT INTO `vaccine` (`vaccine_id`, `vaccinename`) VALUES
 CREATE TABLE `vaccine_information` (
   `id` int(11) NOT NULL,
   `vaccinename` varchar(100) NOT NULL,
-  `information` varchar(200) NOT NULL
+  `information` varchar(350) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -254,13 +260,13 @@ CREATE TABLE `vaccine_information` (
 --
 
 INSERT INTO `vaccine_information` (`id`, `vaccinename`, `information`) VALUES
-(8, 'BCG', 'Protection from: Tuberculosis  \r\n<br> When to give: At birth <br>  \r\nTuberculosis (TB) is an infection that most often attacks the lungs. In infants and young children, it affects other organs like th'),
-(9, 'Hepatitis', 'Protection from: Hepatitis B \r\n<br> When to give: At birth  <br>\r\nHepatitis B virus is a dangerous liver infection that, when caught as an infant, often shows no symptoms for decades. It can develop i'),
-(10, 'Pentavalent', 'Protection from: Diphtheria, Pertussis, Tetanus, Influenza B and Hepatitis B <br>\r\nWhen to give: 6, 10 and 14 weeks'),
-(11, 'Oral Polio', 'Protection from: Poliovirus <br> When to give: 6, 10 and 14 weeks <br>When to give: 14 weeks <br>\r\n                        Polio is a virus that paralyzes 1 in 200 people who get infected. Among those'),
-(12, 'INACTIVATED POLIO', 'Protection from: Poliovirus <br> When to give: 6, 10 and 14 weeks <br>When to give: 14 weeks <br>\r\n                        Polio is a virus that paralyzes 1 in 200 people who get infected. Among those'),
-(13, 'PNEUMOCOCCAL CONJUGATE', 'Protection from: Pneumonia and Meningitis <br>When to give: 6, 10 and 14 weeks <br>\r\n Pneumococcal diseases such as pneumonia and meningitis are a common cause of sickness and deathworldwide, especial'),
-(14, 'MEASLES, MUMPS, RUBELLA (MMR', 'When to give: 9 months and 1 year old  \r\n <br>Measles is a highly contagious disease with symptoms that include fever, runny nose, white spots in the back of the mouth and a rash. Serious cases can ca');
+(8, 'BCG', 'Protection from: Tuberculosis  <br>\r\nWhen to give: At birth <br>\r\nTuberculosis (TB) is an infection that most often attacks the lungs.'),
+(9, 'Hepatitis', 'Protection from: Hepatitis B <br>\r\nWhen to give: At birth <br>\r\nHepatitis B virus is a dangerous liver infection that, when caught as an infant, often shows no symptoms for decades.'),
+(10, 'Pentavalent', 'Protection from: Diphtheria, Pertussis, Tetanus, Influenza B and Hepatitis B <br>\r\nWhen to give: 6, 10 and 14 weeks.'),
+(11, 'Oral Polio', 'Protection from: Poliovirus <br>\r\nWhen to give: 14 weeks <br>\r\nPolio is a virus that paralyzes 1 in 200 people who get infected.'),
+(12, 'INACTIVATED POLIO', 'Protection from: Poliovirus <br>\r\nWhen to give: 14 weeks <br>\r\nPolio is a virus that paralyzes 1 in 200 people who get infected.'),
+(13, 'PNEUMOCOCCAL CONJUGATE', 'Protection from: Pneumonia and Meningitis <br>\r\nWhen to give: 6, 10 and 14 weeks <br>\r\nPneumococcal diseases such as pneumonia and meningitis are a common cause of sickness and death worldwide.'),
+(14, 'MEASLES, MUMPS, RUBELLA (MMR)', 'Protection from: MEASLES, MUMPS and RUBELLA (MMR)\r\nWhen to give: 9 months and 1 year old <br>\r\nMeasles is a highly contagious disease with symptoms that include fever, runny nose, white spots in the back of the mouth and a rash.');
 
 -- --------------------------------------------------------
 
@@ -389,7 +395,7 @@ ALTER TABLE `admin_tbl`
 -- AUTO_INCREMENT for table `chart`
 --
 ALTER TABLE `chart`
-  MODIFY `chart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=389;
+  MODIFY `chart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=390;
 
 --
 -- AUTO_INCREMENT for table `child_tbl`
@@ -431,7 +437,7 @@ ALTER TABLE `parent_tbl`
 -- AUTO_INCREMENT for table `vaccine`
 --
 ALTER TABLE `vaccine`
-  MODIFY `vaccine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `vaccine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `vaccine_information`
