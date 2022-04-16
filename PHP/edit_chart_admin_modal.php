@@ -19,7 +19,7 @@ $checkhealthcenter_id = $rows1['healthcenter_id'];
 $healthcenter = $rows1['healthcenter'];
 $vaccinated = $rows1['vaccinated'];
 ?>
-<form action="php/update_chart_admin.php" method="POST">    
+<form action="PHP/update_chart_admin.php" method="POST">    
         <input hidden class="form-control" type="text" placeholder="<?php echo isset($chart_id) ? $chart_id : ''; ?>" name="chart_id" value="<?php echo isset($chart_id) ? $chart_id : ''; ?>"/>                  
             Vaccine Name
 

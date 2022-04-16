@@ -5,7 +5,7 @@ $query = "SELECT * FROM child_tbl where child_id = '$child_id' limit 1";
 $result = mysqli_query($con, $query);
 $child_data = mysqli_fetch_assoc($result);
 ?>
- <form class="form-inline" action="php/update_parent_child.php" method="post"  style=" width: 100%">
+ <form class="form-inline" action="PHP/update_parent_child.php" method="post"  style=" width: 100%">
     <div class="container" >
     <input type="text" hidden class="form-control"  name="child_id" value=<?php if (isset($child_id)) {
         echo $child_id;
