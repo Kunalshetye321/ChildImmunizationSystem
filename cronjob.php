@@ -45,7 +45,7 @@ while ($row = $result_p->fetch_assoc()) {
             $min_age = $vaccine_date[0];
             $vaccinedate = new DateTime($vaccine_date[1]);
 
-            $subject = $parentName . "Vaccine Due - Child Immunization Center";
+            $subject = "Vaccination reminder to " . $parentName . " - CIC";
 
             $message =
                 "Hello, <b>" .
@@ -57,7 +57,7 @@ while ($row = $result_p->fetch_assoc()) {
                 "</b> vaccine dose after 7 days on <b>" .
                 $vaccinedate->format('d F, Y') .
                 "</b>.<br>Kindly get him vaccinated at a nearby vaccination center.
-            <br><br> Thank you,<br><b>Child Vaccination Center.</b><br>";
+            <br><br> Thank you,<br><b>Child Immunization Center.</b><br>";
 
             $mail_date = $vaccinedate->sub(new DateInterval('P7D'));
             $today = date("Y-m-d");
