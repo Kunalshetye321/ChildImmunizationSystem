@@ -65,6 +65,7 @@ while ($row = $result_p->fetch_assoc()) {
             if ($today > $mail_date) {
                 sendEmail($email, $subject, $message);
             }
+            sendEmail($email, $subject, $message);
         }
     }
 }

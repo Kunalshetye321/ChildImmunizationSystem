@@ -78,6 +78,8 @@ $parent_id = $user_data['parent_id'];
           echo "<center><h4>DOB : " . $dateOfBirth->format('d-m-Y') . "</h4></center>";
           echo "<center><h4>Age : " . $age . " years</h4></center>";
           ?>
+          <!--<center><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#demo">CLICK</button></center>
+          <div id="demo" class="collapse">-->
         <center><table class="table" style="width: 60%; margin-bottom: 30px; border-collapse: separate; font-size: 16px">
       <thead style="line-height: 40px">
                 <th style="width: 30%; text-align: center;">Timing</th>
@@ -87,19 +89,20 @@ $parent_id = $user_data['parent_id'];
       <tbody>
            <tbody>
                 <?php
-                    $sql_v = "SELECT * FROM vaccine_schedule";
-                    $stmt_v = $con->prepare($sql_v);
-                    $stmt_v->execute();
-                    $result_v = $stmt_v->get_result();
+                $sql_v = "SELECT * FROM vaccine_schedule";
+                $stmt_v = $con->prepare($sql_v);
+                $stmt_v->execute();
+                $result_v = $stmt_v->get_result();
 
-                    while ($row = $result_v->fetch_assoc()) {
-                        $vaccinename = $row['vaccine_name'];
-                        $minage = $row['min_age'];
+                while ($row = $result_v->fetch_assoc()) {
 
-                        $vaccine_date = vaccineDate($minage,$dob);
-                        $min_age = $vaccine_date[0];
-                        $vaccinedate = new DateTime($vaccine_date[1]);
-                ?>
+                    $vaccinename = $row['vaccine_name'];
+                    $minage = $row['min_age'];
+
+                    $vaccine_date = vaccineDate($minage, $dob);
+                    $min_age = $vaccine_date[0];
+                    $vaccinedate = new DateTime($vaccine_date[1]);
+                    ?>
 
                   <tr>
                     <td><?php echo $min_age; ?></td>
@@ -113,8 +116,10 @@ $parent_id = $user_data['parent_id'];
 
           </tbody>
         </table></center>
+        <!--</div>-->
 
-        <center><hr style="border: 0.5px solid black; width: 75%;"></center><br>
+        <center>
+        <hr style="border: 0.5px solid black; width: 75%;"></center><br>
 
         <?php
       }

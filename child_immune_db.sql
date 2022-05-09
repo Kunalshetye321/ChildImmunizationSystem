@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 16, 2022 at 10:00 AM
+-- Generation Time: May 09, 2022 at 01:02 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.1
 
@@ -63,7 +63,9 @@ CREATE TABLE `chart` (
 --
 
 INSERT INTO `chart` (`chart_id`, `child_id`, `vaccine_id`, `dose`, `healthcare_id`, `dateofvaccination`, `healthcenter_id`, `vaccinated`) VALUES
-(389, 92, 1, 1, 1, '2022-04-13', 1, 'yes');
+(389, 92, 1, 1, 1, '2022-04-13', 1, 'yes'),
+(390, 94, 4, 2, 2, '2020-04-14', 1, 'no'),
+(391, 92, 1, 2, 1, '2022-04-18', 1, 'yes');
 
 -- --------------------------------------------------------
 
@@ -94,46 +96,7 @@ CREATE TABLE `child_tbl` (
 INSERT INTO `child_tbl` (`child_id`, `parent_id`, `firstname`, `lastname`, `middlename`, `dateofbirth`, `placeofbirth`, `address`, `fathername`, `mothername`, `birthheight`, `birthweight`, `sex`) VALUES
 (92, 22, 'Amit', 'Patil', 'Ayush', '2008-02-01', 'Mumbai', 'Mumbai', 'Ayush', 'Anita', 3, 20, 'male'),
 (93, 22, 'Amita', 'Patil', 'Ayush', '2010-02-01', 'Mumbai', 'Mumbai', 'Ayush', 'Anita', 2, 15, 'female'),
-(94, 18, 'Vivek', 'Rane', 'Vishal', '2015-03-02', 'Dadar', 'Dadar', 'Vishal', 'Vinita', 2, 20, 'male');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `comments`
---
-
-CREATE TABLE `comments` (
-  `comment_id` int(11) NOT NULL,
-  `comment_subject` varchar(250) NOT NULL,
-  `comment_text` text NOT NULL,
-  `comment_status` int(1) NOT NULL,
-  `parent_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `comments`
---
-
-INSERT INTO `comments` (`comment_id`, `comment_subject`, `comment_text`, `comment_status`, `parent_id`) VALUES
-(29, 'vaccine', 'You child will have its vaccine tomorrow', 1, 15),
-(30, 'vaccine', 'You child will have its vaccine tomorrow', 1, 15),
-(31, 'vaccine', 'Your child will have its vaccine tomorrow', 1, 15),
-(32, 'vaccine', 'Your child will have its vaccine tomorrow', 1, 15),
-(33, 'vaccine', 'Your child will have its vaccine tomorrow', 1, 15),
-(34, 'vaccine', 'Your child will have its vaccine tomorrow', 1, 15),
-(35, 'vaccine', 'Your child will have its vaccine tomorrow', 1, 15),
-(36, 'vaccine', 'Your child will have its vaccine tomorrow', 1, 15),
-(37, 'vaccine', 'Your child will have its vaccine tomorrow', 1, 15),
-(38, 'vaccine', 'Your child will have its vaccine tomorrow2021-12-03', 1, 15),
-(39, 'vaccine', 'Your child will have its vaccine tomorrow: 2021-12-03', 1, 15),
-(40, 'vaccine', 'Your child is scheduled to have a 1 dose for Measles, Mumps, Rubella (MMR) vaccine tomorrow, 2021-12-03 in Brgy.ramos health center at 8:00 AM. <br>', 1, 15),
-(41, 'vaccine', 'Your child will have its vaccine tomorrow: 2021-12-09', 1, 15),
-(42, 'vaccine', 'Your child will have its vaccine tomorrow: 2021-12-09', 1, 15),
-(43, 'vaccine', 'Your child will have its vaccine tomorrow: 2021-12-09', 0, 15),
-(44, 'vaccine', 'Your child will have its vaccine tomorrow: 2021-12-09', 0, 15),
-(45, 'vaccine', 'Your child will have its vaccine tomorrow: 2021-12-09', 0, 15),
-(46, 'vaccine', 'Your child will have its vaccine tomorrow: 2021-12-09', 0, 15),
-(47, 'vaccine', 'Your child will have its vaccine tomorrow: 2021-12-14', 0, 15);
+(94, 18, 'Vivek', 'Rane', 'Vishal', '2020-03-02', 'Dadar', 'Dadar', 'Vishal', 'Vinita', 2, 20, 'male');
 
 -- --------------------------------------------------------
 
@@ -216,8 +179,8 @@ CREATE TABLE `parent_tbl` (
 --
 
 INSERT INTO `parent_tbl` (`parent_id`, `firstname`, `lastname`, `middlename`, `address`, `phonenum`, `email`, `username`, `password`) VALUES
-(18, 'Vishal', 'Rane', 'Viraj', 'Vasai', '12341234', 'vishalr2021@protonmail.com', 'vishalrane', '1234'),
-(22, 'Ayush', 'Patil', 'Shubhash', 'Palghar', '9834693269', 'childimmunizationcenter@gmail.com', 'ayushpatil', '1234');
+(18, 'Vishal', 'Rane', 'Viraj', 'Vasai', '12341234', 'vishalrane@gmail.com', 'vishalrane', '1234'),
+(22, 'Ayush', 'Patil', 'Shubhash', 'Palghar', '12341234', 'ayushpatil@protonmail.com', 'ayushpatil', '1234');
 
 -- --------------------------------------------------------
 
@@ -241,7 +204,8 @@ INSERT INTO `vaccine` (`vaccine_id`, `vaccinename`) VALUES
 (4, 'Oral Polio'),
 (5, 'Inactivated Polio'),
 (6, 'Pneumococcal Conjugate'),
-(7, 'Measles, Mumps, Rubella (MMR)');
+(7, 'Measles, Mumps, Rubella (MMR)'),
+(66, 'Polio');
 
 -- --------------------------------------------------------
 
@@ -266,7 +230,8 @@ INSERT INTO `vaccine_information` (`id`, `vaccinename`, `information`) VALUES
 (11, 'Oral Polio', 'Protection from: Poliovirus <br>\r\nWhen to give: 14 weeks <br>\r\nPolio is a virus that paralyzes 1 in 200 people who get infected.'),
 (12, 'INACTIVATED POLIO', 'Protection from: Poliovirus <br>\r\nWhen to give: 14 weeks <br>\r\nPolio is a virus that paralyzes 1 in 200 people who get infected.'),
 (13, 'PNEUMOCOCCAL CONJUGATE', 'Protection from: Pneumonia and Meningitis <br>\r\nWhen to give: 6, 10 and 14 weeks <br>\r\nPneumococcal diseases such as pneumonia and meningitis are a common cause of sickness and death worldwide.'),
-(14, 'MEASLES, MUMPS, RUBELLA (MMR)', 'Protection from: MEASLES, MUMPS and RUBELLA (MMR)\r\nWhen to give: 9 months and 1 year old <br>\r\nMeasles is a highly contagious disease with symptoms that include fever, runny nose, white spots in the back of the mouth and a rash.');
+(14, 'MEASLES, MUMPS, RUBELLA (MMR)', 'Protection from: MEASLES, MUMPS and RUBELLA (MMR)\r\nWhen to give: 9 months and 1 year old <br>\r\nMeasles is a highly contagious disease with symptoms that include fever, runny nose, white spots in the back of the mouth and a rash.'),
+(16, 'Polio', 'polio vaccine');
 
 -- --------------------------------------------------------
 
@@ -333,12 +298,6 @@ ALTER TABLE `child_tbl`
   ADD PRIMARY KEY (`child_id`);
 
 --
--- Indexes for table `comments`
---
-ALTER TABLE `comments`
-  ADD PRIMARY KEY (`comment_id`);
-
---
 -- Indexes for table `guide`
 --
 ALTER TABLE `guide`
@@ -395,19 +354,13 @@ ALTER TABLE `admin_tbl`
 -- AUTO_INCREMENT for table `chart`
 --
 ALTER TABLE `chart`
-  MODIFY `chart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=390;
+  MODIFY `chart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=392;
 
 --
 -- AUTO_INCREMENT for table `child_tbl`
 --
 ALTER TABLE `child_tbl`
-  MODIFY `child_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
-
---
--- AUTO_INCREMENT for table `comments`
---
-ALTER TABLE `comments`
-  MODIFY `comment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `child_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=97;
 
 --
 -- AUTO_INCREMENT for table `guide`
@@ -431,19 +384,19 @@ ALTER TABLE `healthcenter_tbl`
 -- AUTO_INCREMENT for table `parent_tbl`
 --
 ALTER TABLE `parent_tbl`
-  MODIFY `parent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `parent_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `vaccine`
 --
 ALTER TABLE `vaccine`
-  MODIFY `vaccine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `vaccine_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- AUTO_INCREMENT for table `vaccine_information`
 --
 ALTER TABLE `vaccine_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `vaccine_schedule`
