@@ -1,8 +1,8 @@
 <?php
 
 $dbhost = "localhost";
-$dbuser = "root";
-$dbpass = "";
+$dbuser = "saroot";
+$dbpass = "rooy";
 $dbname = "child_immune_db";
 
 if (!($con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname))) {
