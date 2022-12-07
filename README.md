@@ -18,7 +18,7 @@ According to research, in India more than millions of children remain unimmunize
 ![image](https://user-images.githubusercontent.com/59092252/206174993-c7981c1f-0a66-4680-a6a1-890595293ccf.png)
 
 # Nutrition Guide
-![image](https://user-images.githubusercontent.com/59092252/206175126-1ba3eb96-5c3c-42c4-9c66-ce01af855e95.png)
+![image](https://user-images.githubusercontent.com/59092252/206175657-c638ae03-b086-439a-8dcd-0ad97c79f31c.png)
 
 # Dashboard
 ![image](https://user-images.githubusercontent.com/59092252/206175216-67e99330-034d-432a-9dd0-7090f10ff76e.png)
